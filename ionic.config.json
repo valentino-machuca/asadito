@@ -1,0 +1,7 @@
+{
+  "name": "asadito",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

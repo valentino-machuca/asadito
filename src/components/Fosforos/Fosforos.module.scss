@@ -1,0 +1,49 @@
+.container{
+   position: relative;
+   width: 100%;
+   height: 15%;
+   margin-bottom: 5%;
+
+   .fosforo1, .fosforo2, .fosforo3, .fosforo4, .fosforo5{
+      animation: init .2s both;
+      position: absolute;
+      font-size: 2.5em;
+      top: 10%;
+      left: 28%;
+      rotate: 135deg;
+   }
+
+   .fosforo2{
+      top: -20%;
+      left: 40%;
+      rotate: 45deg;
+   }
+
+   .fosforo3{
+      top: 10%;
+      left: 52%;
+   }
+
+   .fosforo4{
+      top: 40%;
+      left: 40%;
+      rotate: 45deg;
+   }
+
+   .fosforo5{
+      top: 10%;
+      left: 40%;
+      rotate: 90deg;
+   }
+}
+
+@keyframes init {
+   0%{
+      opacity: 0;
+      transform: translateY(-20px);
+   }
+   100%{
+      opacity: 1;
+      transform: translateX(0);
+   }
+}

@@ -1,0 +1,25 @@
+@import '../../theme/variables.css';
+
+.container{
+   animation: init .4s both;
+   display: flex;
+   margin-left: 5%;
+   align-items: center;
+   width: 95%;
+   height: 7vh;
+   font-size: 1.6em;
+   font-weight: 800;
+   font-family: 'DM Sans', sans-serif !important;
+}
+
+@keyframes init {
+   0%{
+      opacity: 0;
+      transform: translateX(-100px);
+   }
+
+   100%{
+      opacity: 1;
+      transform: translateX(0);
+   }
+}

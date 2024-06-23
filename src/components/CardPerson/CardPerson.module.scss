@@ -1,0 +1,52 @@
+.container{
+   transition: .3s;
+   animation: init .3s .3s both;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background-color: white;
+   color: #222222;
+   width: 90%;
+   border-radius: 5px;
+   margin-bottom: 1em;
+
+   .avatar{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 60%;
+      margin-left: 1.5em;
+
+      p{
+         font-size: 1em;
+         margin-left: .5em;
+         font-weight: 600;
+         font-family: 'DM Sans', sans-serif !important;
+      }
+   }
+
+   .monto{
+      font-size: 1em;
+      font-weight: 300;
+      margin-right: 1em;
+      font-family: 'DM Sans', sans-serif !important;
+   }
+
+   .trash{
+      font-size: 1.5em;
+      color: rgb(103, 49, 49);
+      margin-right: .5em;
+   }
+}
+
+@keyframes init {
+   0%{
+      opacity: 0;
+      transform: translateY(100px);
+   }
+
+   100%{
+      opacity: 1;
+      transform: translateY(0);
+   }
+}

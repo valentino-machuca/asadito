@@ -10,10 +10,12 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import { bonfireOutline, homeOutline, peopleOutline } from 'ionicons/icons';
+
+// Componentes
+import Home from './pages/Home/Home';
+import Calculator from './pages/Calculator/Calculator';
+import Tab3 from './pages/Anotador/Anotador';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -31,19 +33,10 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
-
 /* Theme variables */
 import './theme/variables.css';
+import Anotador from './pages/Anotador/Anotador';
+
 
 setupIonicReact();
 
@@ -52,31 +45,28 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
-          </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
-          </Route>
-          <Route path="/tab3">
-            <Tab3 />
-          </Route>
           <Route exact path="/">
-            <Redirect to="/tab1" />
+            <Home />
+          </Route>
+          <Route exact path="/cuentas">
+            <Calculator />
+          </Route>
+          <Route path="/anotador">
+            <Anotador />
           </Route>
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon aria-hidden="true" icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
+        <IonTabBar slot="bottom" color='dark'>
+          <IonTabButton tab="tab1" href="/">
+            <IonIcon aria-hidden="true" icon={homeOutline} />
+            <IonLabel>Inicio</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
+          <IonTabButton tab="tab2" href="/cuentas">
+            <IonIcon aria-hidden="true" icon={peopleOutline} />
+            <IonLabel>Cuentas</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={square} />
-            <IonLabel>Tab 3</IonLabel>
+          <IonTabButton tab="tab3" href="/anotador">
+            <IonIcon aria-hidden="true" icon={bonfireOutline} />
+            <IonLabel>Anotador de truco</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

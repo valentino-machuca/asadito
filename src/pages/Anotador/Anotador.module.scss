@@ -1,0 +1,90 @@
+.container{
+   width: 100%;
+   display: flex;
+
+   .equipo_1, .equipo_2{
+      animation: init .3s .2s both;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: space-evenly;
+      width: 50%;
+      height: 80vh;
+
+      h3{
+         text-align: center;
+         font-size: 1.2em;
+         font-family: 'DM Sans', sans-serif !important;
+         letter-spacing: 1px;
+         font-weight: 200;
+      }
+
+      .fosforos{
+         width: 100%;
+         height: 80%;
+         padding-top: 20px;
+         border-top: 2px solid rgba(255, 255, 255, 0.265);
+         border-right: 2px solid rgba(255, 255, 255, 0.265);
+      }
+
+      .botones{
+         animation: init .3s .5s both;
+         width: 100%;
+         margin-top: 10px;
+         display: flex;
+         justify-content: space-evenly;
+         align-items: center;
+
+         .button{ 
+            transition: .3s;
+            font-size: 2em;
+            border-radius: 100%;
+            padding: .3em;
+            
+            &:active{
+               transition: .3s;
+               background-color: rgba(255, 255, 255, 0.075);
+            }
+         }
+      }
+   }
+}
+
+.newgame{
+   animation: init .3s .6s both;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+
+   .button{
+      transition: .1s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40%;
+      background-color: rgba(255, 255, 255, 0.975);
+      color: #222222;
+      border-radius: 5px;
+      text-align: center;
+      padding: .3em;
+      font-size: 1.2em;
+
+      &:active{
+         transition: .1s;
+         scale: .99;
+         background-color: rgba(255, 255, 255, 0.33);
+      }
+   }
+}
+
+@keyframes init {
+   0%{
+      opacity: 0;
+      transform: translateY(100px);
+   }
+   100%{
+      opacity: 1;
+      transform: translateY(0px);
+   }
+}

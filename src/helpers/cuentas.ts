@@ -1,10 +1,10 @@
-function calcularSaldos(personas: {nombre: string, monto: number}[]) {
-  const montoTotal = personas.reduce((acc, b) => acc + b.monto, 0);
+function calcularSaldos(personas: {nombre: string, monto: string}[]) {
+  const montoTotal = personas.reduce((acc, b) => acc + Number(b.monto), 0);
   const promedioTotal = montoTotal / personas.length;
 
   const diferencias = personas.map((persona) => ({
     nombre: persona.nombre,
-    diferencia: persona.monto - promedioTotal,
+    diferencia: Number(persona.monto) - promedioTotal,
   }));
 
   let deudores = diferencias.filter((p) => p.diferencia < 0);
@@ -34,3 +34,5 @@ function calcularSaldos(personas: {nombre: string, monto: number}[]) {
   return transacciones;
 
 }
+
+export default calcularSaldos;

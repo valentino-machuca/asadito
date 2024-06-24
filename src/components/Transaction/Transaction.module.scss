@@ -1,0 +1,55 @@
+.container{
+   animation: init .3s both;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background-color: white;
+   padding: 1em;
+   width: 100%;
+   border-radius: 5px;
+   margin-bottom: 20px;
+   color: #222;
+   
+   .deudor, .acreedor{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 40%;
+
+      p{
+         padding: 0;
+         margin: 0;
+         margin-left: 10px;
+         font-family: 'DM Sans', sans-serif !important;
+      }
+   }
+
+   .acreedor{
+      justify-content: flex-end;
+   }
+
+   .arrow{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      p{
+         margin: 0;
+         padding: 0;
+         margin-top: 5px;
+         font-family: 'DM Sans', sans-serif !important;
+      }
+   }
+}
+
+@keyframes init {
+   0%{
+      opacity: 0;
+      transform: translateY(100px);
+   }
+   100%{
+      opacity: 1;
+      transform: translateY(0);
+   }
+}

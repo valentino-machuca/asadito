@@ -1,4 +1,5 @@
 function formatearImporte(numero: number, moneda = 'ARS', idioma = 'es-AR') {
+
    return new Intl.NumberFormat(idioma, {
      style: 'currency',
      currency: moneda,

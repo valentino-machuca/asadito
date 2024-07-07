@@ -1,11 +1,24 @@
-function calcularSaldos(personas: {nombre: string, monto: string}[]) {
-  const montoTotal = personas.reduce((acc, b) => acc + Number(b.monto), 0);
-  const promedioTotal = montoTotal / personas.length;
+function calcularSaldos(personas: Persona[]) {
 
-  const diferencias = personas.map((persona) => ({
-    nombre: persona.nombre,
-    diferencia: Number(persona.monto) - promedioTotal,
-  }));
+  // Filtrar las personas que comen y las que toman
+  const comensales = personas.filter(persona => persona.come);
+  const bebedores = personas.filter(persona => persona.toma);
+
+  // Calcular el monto total y el promedio para comida y bebida
+  const totalComida = comensales.reduce((acc, p) => acc + Number(p.gasto_comida), 0);
+  const totalBebida = bebedores.reduce((acc, p) => acc + Number(p.gasto_bebida), 0);
+  const promedioComida = totalComida / comensales.length;
+  const promedioBebida = totalBebida / bebedores.length;
+
+  // Calcular las diferencias para cada persona
+  const diferencias = personas.map(persona => {
+    const difComida = persona.come ? Number(persona.gasto_comida) - promedioComida : 0;
+    const difBebida = persona.toma ? Number(persona.gasto_bebida) - promedioBebida : 0;
+    return {
+      nombre: persona.nombre,
+      diferencia: difComida + difBebida,
+    };
+  });
 
   let deudores = diferencias.filter((p) => p.diferencia < 0);
   let acreedores = diferencias.filter((p) => p.diferencia > 0);

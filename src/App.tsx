@@ -45,27 +45,25 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/cuentas">
-            <Calculator />
-          </Route>
-          <Route path="/anotador">
-            <Anotador />
-          </Route>
+          <Redirect exact path="/" to="/home" />
+          <Route path="/home" render={() => <Home />} exact={true} />
+          <Route path="/cuentas" render={() => <Calculator />} exact={true} />
+          <Route path="/anotador" render={() => <Anotador />} exact={true} />
         </IonRouterOutlet>
+
         <IonTabBar slot="bottom" color='dark'>
-          <IonTabButton tab="tab1" href="/">
-            <IonIcon aria-hidden="true" icon={homeOutline} />
+          <IonTabButton tab="home" href="/home">
+            <IonIcon icon={homeOutline} />
             <IonLabel>Inicio</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/cuentas">
-            <IonIcon aria-hidden="true" icon={peopleOutline} />
+
+          <IonTabButton tab="cuentas" href="/cuentas">
+            <IonIcon icon={peopleOutline} />
             <IonLabel>Cuentas</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/anotador">
-            <IonIcon aria-hidden="true" icon={bonfireOutline} />
+
+          <IonTabButton tab="anotador" href="/anotador">
+            <IonIcon icon={bonfireOutline} />
             <IonLabel>Anotador de truco</IonLabel>
           </IonTabButton>
         </IonTabBar>

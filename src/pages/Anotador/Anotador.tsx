@@ -58,8 +58,8 @@ const Anotador: React.FC = () => {
               }
             </div>
             <div className={s.botones}>
-              <IonIcon aria-hidden="true" icon={addOutline} onClick={() => addPointTeam(equipo1, setEquipo1)} className={s.button}/>
               <IonIcon aria-hidden="true" icon={removeOutline} onClick={() => deletePointTeam(equipo1, setEquipo1)} className={s.button}/>
+              <IonIcon aria-hidden="true" icon={addOutline} onClick={() => addPointTeam(equipo1, setEquipo1)} className={s.button}/>
             </div>
           </div>
           <div className={s.equipo_2}>
@@ -70,8 +70,8 @@ const Anotador: React.FC = () => {
               }
             </div>
             <div className={s.botones}>
-              <IonIcon aria-hidden="true" icon={addOutline} onClick={() => addPointTeam(equipo2, setEquipo2)} className={s.button}/>
               <IonIcon aria-hidden="true" icon={removeOutline} onClick={() => deletePointTeam(equipo2, setEquipo2)} className={s.button}/>
+              <IonIcon aria-hidden="true" icon={addOutline} onClick={() => addPointTeam(equipo2, setEquipo2)} className={s.button}/>
             </div>
           </div>
         </div>

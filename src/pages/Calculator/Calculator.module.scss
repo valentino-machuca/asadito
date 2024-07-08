@@ -14,12 +14,13 @@
       overflow-y: scroll;
       overflow-x: hidden;
       width: 100%;
-      height: 72vh;
+      height: 65vh;
+      max-height: 65vh;
       margin-bottom: 5%;
       margin-top: 5%;
 
       .empty{
-         font-family: 'Poppins', sans-serif !important;
+         font-family: 'Montserrat', sans-serif !important;
          font-weight: 200;
       }
    }
@@ -31,7 +32,7 @@
       height: 7vh;
       font-size: 1.2em;
       margin-top: 2em;
-      font-family: 'Poppins', sans-serif !important;
+      font-family: 'Montserrat', sans-serif !important;
       font-weight: 600;
       color: #222222;
       background-color: rgba(255, 255, 255, 0.975);
@@ -60,8 +61,13 @@
       width: 100%;
 
       h3{
-         margin-bottom: 20px;
-         font-family: 'Poppins', sans-serif !important;
+         margin-bottom: 10px;
+         font-family: 'Montserrat', sans-serif !important;
+      }
+
+      p{
+         margin-bottom: 40px;
+         font-family: 'Montserrat', sans-serif !important;
       }
    }
 

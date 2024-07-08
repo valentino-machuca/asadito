@@ -36,40 +36,53 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Anotador from './pages/Anotador/Anotador';
+import React, {useEffect, useState} from "react";
+import SplashScreen from "./components/SplashScreen/SplashScreen";
 
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Redirect exact path="/" to="/home" />
-          <Route path="/home" render={() => <Home />} exact={true} />
-          <Route path="/cuentas" render={() => <Calculator />} exact={true} />
-          <Route path="/anotador" render={() => <Anotador />} exact={true} />
-        </IonRouterOutlet>
+const App: React.FC = () => {
+  const [splashScreen, setSplashScreen] = useState(true);
 
-        <IonTabBar slot="bottom" color='dark'>
-          <IonTabButton tab="home" href="/home">
-            <IonIcon icon={homeOutline} />
-            <IonLabel>Inicio</IonLabel>
-          </IonTabButton>
+  useEffect(() => {
+    setTimeout(() => {
+      setSplashScreen(false)
+    }, 2500)
+  }, []);
 
-          <IonTabButton tab="cuentas" href="/cuentas">
-            <IonIcon icon={peopleOutline} />
-            <IonLabel>Cuentas</IonLabel>
-          </IonTabButton>
+  return (
+      <IonApp>
+        {splashScreen && <SplashScreen/>}
+        <IonReactRouter>
+          <IonTabs >
+            <IonRouterOutlet>
+              <Redirect exact path="/" to="/home" />
+              <Route path="/home" render={() => <Home/>} exact={true} />
+              <Route path="/cuentas" render={() => <Calculator />} exact={true} />
+              <Route path="/anotador" render={() => <Anotador />} exact={true} />
+            </IonRouterOutlet>
 
-          <IonTabButton tab="anotador" href="/anotador">
-            <IonIcon icon={bonfireOutline} />
-            <IonLabel>Anotador de truco</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+            <IonTabBar slot="bottom" color='dark'>
+              <IonTabButton tab="home" href="/home">
+                <IonIcon icon={homeOutline} />
+                <IonLabel>Inicio</IonLabel>
+              </IonTabButton>
+
+              <IonTabButton tab="cuentas" href="/cuentas">
+                <IonIcon icon={peopleOutline} />
+                <IonLabel>Cuentas</IonLabel>
+              </IonTabButton>
+
+              <IonTabButton tab="anotador" href="/anotador">
+                <IonIcon icon={bonfireOutline} />
+                <IonLabel>Anotador de truco</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        </IonReactRouter>
+      </IonApp>
+  );
+}
 
 export default App;

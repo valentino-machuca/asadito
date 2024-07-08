@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin-inline: 20px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 
     .feat, .link{
         transition: .1s;
@@ -28,8 +28,8 @@
 
         &:active{
             transition: .1s;
-            background-color: #eee5;
-            scale: .95;
+            opacity: .7;
+            scale: .99;
         }
     }
 

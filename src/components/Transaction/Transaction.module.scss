@@ -4,7 +4,7 @@
    justify-content: space-between;
    align-items: center;
    background-color: white;
-   padding: 1em;
+   padding: .5em;
    width: 100%;
    border-radius: 5px;
    margin-bottom: 20px;
@@ -20,12 +20,13 @@
          padding: 0;
          margin: 0;
          margin-left: 10px;
-         font-family: 'Poppins', sans-serif !important;
+         font-family: 'Montserrat', sans-serif !important;
       }
    }
 
    .acreedor{
       justify-content: flex-end;
+      margin-right: 10px;
    }
 
    .arrow{
@@ -38,7 +39,7 @@
          margin: 0;
          padding: 0;
          margin-top: 5px;
-         font-family: 'Poppins', sans-serif !important;
+         font-family: 'Montserrat', sans-serif !important;
       }
    }
 }

@@ -1,24 +1,22 @@
 function calcularSaldos(personas: Persona[]) {
 
-  // Filtrar las personas que comen y las que toman
-  const comensales = personas.filter(persona => persona.come);
-  const bebedores = personas.filter(persona => persona.toma);
+  const personascomen = personas.filter(p => p.come);
+  const personastoman = personas.filter(p => p.toma);
 
-  // Calcular el monto total y el promedio para comida y bebida
-  const totalComida = comensales.reduce((acc, p) => acc + Number(p.gasto_comida), 0);
-  const totalBebida = bebedores.reduce((acc, p) => acc + Number(p.gasto_bebida), 0);
-  const promedioComida = totalComida / comensales.length;
-  const promedioBebida = totalBebida / bebedores.length;
+  return {
+    transacciones_comida: calcularCampo(personascomen, 'gasto_comida'),
+    transacciones_bebida: calcularCampo(personastoman, 'gasto_bebida'),
+  }
+}
 
-  // Calcular las diferencias para cada persona
-  const diferencias = personas.map(persona => {
-    const difComida = persona.come ? Number(persona.gasto_comida) - promedioComida : 0;
-    const difBebida = persona.toma ? Number(persona.gasto_bebida) - promedioBebida : 0;
-    return {
-      nombre: persona.nombre,
-      diferencia: difComida + difBebida,
-    };
-  });
+function calcularCampo(personas: Persona[], campo: 'gasto_comida' | 'gasto_bebida') {
+  const montoTotal = personas.reduce((acc, b) => acc + Number(b[campo]), 0);
+  const promedioTotal = montoTotal / personas.length;
+
+  const diferencias = personas.map((persona) => ({
+    nombre: persona.nombre,
+    diferencia: Number(persona[campo]) - promedioTotal,
+  }));
 
   let deudores = diferencias.filter((p) => p.diferencia < 0);
   let acreedores = diferencias.filter((p) => p.diferencia > 0);
@@ -28,11 +26,11 @@ function calcularSaldos(personas: Persona[]) {
   deudores.forEach(deudor => {
     while (deudor.diferencia < 0) {
       let acreedor = acreedores.find(a => a.diferencia > 0);
-
+      
       if (!acreedor) break;
-
+      
       let pago = Math.min(-deudor.diferencia, acreedor.diferencia);
-
+      
       transacciones.push({
         deudor: deudor.nombre,
         acreedor: acreedor.nombre,
@@ -45,7 +43,6 @@ function calcularSaldos(personas: Persona[]) {
   });
 
   return transacciones;
-
 }
 
 export default calcularSaldos;

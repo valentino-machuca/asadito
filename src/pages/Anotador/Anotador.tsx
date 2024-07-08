@@ -45,8 +45,8 @@ const Anotador: React.FC = () => {
   }
 
   return (
-    <IonPage>
-      <IonContent fullscreen color='dark'>
+    <IonPage style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#222428'}}>
+      <IonContent fullscreen color='dark' style={{maxWidth: '800px'}}>
         <HeaderCustom title='.anotador' icon={bonfire}/>
 
         <div className={s.container}>

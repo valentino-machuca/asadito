@@ -8,9 +8,9 @@ import { Browser } from '@capacitor/browser';
 //Componentes
 import HeaderCustom from '../../components/Header/Header';
 import { useHistory } from 'react-router';
+import SplashScreen from "../../components/SplashScreen/SplashScreen";
 
 const Home: React.FC = () => {
-
   const history = useHistory();
 
   const navigate = (url: string) => {
@@ -23,8 +23,8 @@ const openSite = async (url_site: string) => {
 };
 
   return (
-    <IonPage>
-      <IonContent fullscreen color='dark'>
+    <IonPage style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#222428'}}>
+      <IonContent fullscreen color='dark' style={{maxWidth: '800px'}}>
           <HeaderCustom title='.asadito' icon={restaurant}/>
           <div className={s.container}>
             <div className={s.features}>
@@ -39,7 +39,7 @@ const openSite = async (url_site: string) => {
                 <p>Anotador de truco</p>
               </div>
 
-              <p style={{fontSize: '.8em'}}>Proximamente más features...</p>
+              <p style={{fontSize: '.8em'}}>Próximamente más features...</p>
             </div>
             <div className={s.support}>
               <h3>Apoya al creador!</h3>

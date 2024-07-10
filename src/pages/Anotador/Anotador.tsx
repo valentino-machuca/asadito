@@ -1,10 +1,10 @@
 import { IonAlert, IonContent, IonIcon, IonPage, useIonToast } from '@ionic/react';
-import { addOutline, bonfire, reloadOutline, removeOutline } from 'ionicons/icons';
+import { addOutline, bonfire, removeOutline } from 'ionicons/icons';
 import s from './Anotador.module.scss';
 
 //Componentes
 import HeaderCustom from '../../components/Header/Header';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Fosforos from '../../components/Fosforos/Fosforos';
 
 //Helpers
@@ -47,9 +47,10 @@ const Anotador: React.FC = () => {
   return (
     <IonPage style={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#222428'}}>
       <IonContent fullscreen color='dark' style={{maxWidth: '800px'}}>
-        <HeaderCustom title='.anotador' icon={bonfire}/>
+        <HeaderCustom title='.anotador' icon={bonfire} isIcon={true}/>
 
         <div className={s.container}>
+          {(equipo1.flat().length >= 15 || equipo2.flat().length >= 15) && <div className={s.separator}/>}
           <div className={s.equipo_1}>
             <h3>Nosotros</h3>
             <div className={s.fosforos} onClick={() => addPointTeam(equipo1, setEquipo1)}>
@@ -64,7 +65,7 @@ const Anotador: React.FC = () => {
           </div>
           <div className={s.equipo_2}>
             <h3>Ellos</h3>
-            <div className={s.fosforos} onClick={() => addPointTeam(equipo2, setEquipo2)}>
+            <div className={s.fosforos} onClick={() => addPointTeam(equipo2, setEquipo2)} style={{borderLeft: '2px solid rgba(255, 255, 255, 0.265)'}}>
               {
                 equipo2.map(p => (<Fosforos puntos={p}/>))
               }

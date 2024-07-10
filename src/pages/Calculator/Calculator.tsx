@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { IonContent, IonModal, IonPage, IonButton, IonProgressBar, IonIcon, IonFabButton, IonAlert, useIonAlert } from '@ionic/react';
+import { IonContent, IonModal, IonPage, IonButton, IonProgressBar, IonIcon, IonFabButton, useIonAlert } from '@ionic/react';
 import { add, people, reload } from 'ionicons/icons';
 import s from './Calculator.module.scss';
 
@@ -58,7 +58,7 @@ const Calculator: React.FC = () => {
       <IonContent fullscreen color='dark' style={{maxWidth: '800px'}}>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginRight: '20px'}}>
           <div style={{width: '95%'}}>
-            <HeaderCustom icon={people} title='.cuentas'/>
+            <HeaderCustom icon={people} title='.cuentas' isIcon={true}/>
           </div>
           {personas.length >=2 && <IonButton id='new_buy' color='light' size='small'
             onClick={() =>
@@ -78,7 +78,7 @@ const Calculator: React.FC = () => {
         <div className={s.container}>
           <div className={s.persons}>
             {personas.length < 2 && <div className={s.empty}>
-                <p>Ingrese 2 o más personas para calcular...</p>
+              <p>Ingrese 2 o más personas para calcular...</p>
             </div>}
             {
               <>
@@ -92,7 +92,9 @@ const Calculator: React.FC = () => {
             <IonIcon icon={add} style={{fontSize: '1.5em'}}/>
           </IonFabButton>
           <div style={{height: '7vh', width: '100%'}}>
-            <button disabled={personas.length < 2} className={personas.length >= 2 ? s.calcular : s.cacular_dis} onClick={() => calcularCuentas()}>Calcular</button>
+            <button disabled={personas.length < 2} className={personas.length >= 2 ? s.calcular : s.cacular_dis}
+                    onClick={() => calcularCuentas()}>Calcular
+            </button>
           </div>
         </div>
         <ModalResultados isOpen={isOpen} setIsOpen={setIsOpen} loading={loading} results={results}/>

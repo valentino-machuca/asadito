@@ -1,5 +1,5 @@
 import { IonContent, IonIcon, IonPage } from '@ionic/react';
-import {bonfire, cafe, logoLinkedin, logoVercel, mail, people, restaurant} from 'ionicons/icons';
+import {bonfire, cafe, cart, logoLinkedin, logoVercel, mail, people, restaurant} from 'ionicons/icons';
 import s from './Home.module.scss';
 
 // Capacitor plugin
@@ -55,33 +55,38 @@ const Features = () => {
 
   return (
       <div className={s.features}>
-        <h3>Herramientas!</h3>
-        <div className={s.feat} onClick={() => navigate('/cuentas')}>
-          <IonIcon icon={people} style={{fontSize: '1.2em'}}/>
-          <p>Divisor de compras</p>
-        </div>
+          <h3>Herramientas!</h3>
+          <div className={s.feat} onClick={() => navigate('/cuentas')}>
+              <IonIcon icon={people} style={{fontSize: '1.2em', marginRight: '8px'}}/>
+              <p>Divisor de compras</p>
+          </div>
 
-        <div className={s.feat} onClick={() => navigate('/anotador')}>
-          <IonIcon icon={bonfire} style={{fontSize: '1.2em'}}/>
-          <p>Anotador de truco</p>
-        </div>
+          <div className={s.feat} onClick={() => navigate('/anotador')}>
+              <IonIcon icon={bonfire} style={{fontSize: '1.2em', marginRight: '8px'}}/>
+              <p>Anotador de truco</p>
+          </div>
 
-        <p style={{fontSize: '.8em'}}>Próximamente más features...</p>
+          <div className={s.feat} onClick={() => navigate('/compras')}>
+              <IonIcon icon={cart} style={{fontSize: '1.2em', marginRight: '8px'}}/>
+              <p>Compras</p>
+          </div>
+
+          <p style={{fontSize: '.8em'}}>Próximamente más features...</p>
       </div>
   )
 }
 
 const Contact = () => {
-  const openSite = async (url_site: string) => {
-    await Browser.open({ url: url_site });
-  };
+    const openSite = async (url_site: string) => {
+        await Browser.open({url: url_site});
+    };
 
-  return (
-      <div className={s.features}>
+    return (
+        <div className={s.features}>
         <h3>Contacto y Soporte</h3>
         <div className={s.feat} style={{width: '80%'}}>
           <p>valentinomachuca.dev@gmail.com</p>
-          <IonIcon icon={mail} style={{fontSize: '1.5em'}}/>
+          <IonIcon icon={mail} style={{fontSize: '1.5em', marginLeft: '8px'}}/>
         </div>
         <div className={s.feat} style={{width: '15%'}}
              onClick={() => openSite('https://www.linkedin.com/in/valentino-machuca/')}>

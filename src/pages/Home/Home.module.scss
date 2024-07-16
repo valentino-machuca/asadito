@@ -46,6 +46,9 @@
         align-items: center;
 
         .feat{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
             width: 48%;
         }
     }

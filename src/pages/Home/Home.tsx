@@ -35,11 +35,11 @@ const Support = () => {
         <h3>Apoya al creador</h3>
         <div className={s.link} style={{opacity: .7}}>
           <p>Invitar un café</p>
-          <IonIcon icon={cafe} style={{fontSize: '1.2em'}}/>
+          <IonIcon icon={cafe} style={{fontSize: '14pt'}}/>
         </div>
         <div className={s.link} style={{opacity: .7}}>
           <p>Ver un anuncio</p>
-          <IonIcon icon={logoVercel} style={{fontSize: '1.2em'}}/>
+          <IonIcon icon={logoVercel} style={{fontSize: '14pt'}}/>
         </div>
       </div>
   )
@@ -57,21 +57,21 @@ const Features = () => {
       <div className={s.features}>
           <h3>Herramientas!</h3>
           <div className={s.feat} onClick={() => navigate('/cuentas')}>
-              <IonIcon icon={people} style={{fontSize: '1.2em', marginRight: '8px'}}/>
+              <IonIcon icon={people} style={{fontSize: '14pt', marginRight: '8px'}}/>
               <p>Divisor de compras</p>
           </div>
 
           <div className={s.feat} onClick={() => navigate('/anotador')}>
-              <IonIcon icon={bonfire} style={{fontSize: '1.2em', marginRight: '8px'}}/>
+              <IonIcon icon={bonfire} style={{fontSize: '14pt', marginRight: '8px'}}/>
               <p>Anotador de truco</p>
           </div>
 
           <div className={s.feat} onClick={() => navigate('/compras')}>
-              <IonIcon icon={cart} style={{fontSize: '1.2em', marginRight: '8px'}}/>
+              <IonIcon icon={cart} style={{fontSize: '14pt', marginRight: '8px'}}/>
               <p>Compras</p>
           </div>
 
-          <p style={{fontSize: '.8em'}}>Próximamente más features...</p>
+          <p style={{fontSize: '.8em', width: '100%'}}>Próximamente más features...</p>
       </div>
   )
 }

@@ -39,6 +39,7 @@ import Anotador from './pages/Anotador/Anotador';
 import React, {useEffect, useState} from "react";
 import SplashScreen from "./components/SplashScreen/SplashScreen";
 import ListaCompras from "./pages/Compras/ListaCompras";
+import Playlists from './pages/Playlists/Playlists';
 
 
 setupIonicReact();
@@ -63,6 +64,7 @@ const App: React.FC = () => {
               <Route path="/cuentas" render={() => <Calculator />} exact={true} />
               <Route path="/anotador" render={() => <Anotador />} exact={true} />
               <Route path="/compras" render={() => <ListaCompras />} exact={true} />
+              <Route path="/playlists" render={() => <Playlists />} exact={true} />
             </IonRouterOutlet>
 
             <IonTabBar slot="bottom" color='dark'>

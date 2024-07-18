@@ -1,5 +1,5 @@
 import { IonContent, IonIcon, IonPage } from '@ionic/react';
-import {bonfire, cafe, cart, logoLinkedin, logoVercel, mail, people, restaurant} from 'ionicons/icons';
+import {bonfire, cafe, cart, logoLinkedin, logoVercel, mail, people, radioOutline, restaurant} from 'ionicons/icons';
 import s from './Home.module.scss';
 
 // Capacitor plugin
@@ -30,16 +30,16 @@ const Home: React.FC = () => {
 };
 
 const Support = () => {
+  const openSite = async (url_site: string) => {
+    await Browser.open({url: url_site});
+  };
+
   return (
       <div className={s.support}>
         <h3>Apoya al creador</h3>
-        <div className={s.link} style={{opacity: .7}}>
+        <div className={s.link} onClick={() => openSite('https://cafecito.app/valentino_dev')}>
           <p>Invitar un café</p>
           <IonIcon icon={cafe} style={{fontSize: '14pt'}}/>
-        </div>
-        <div className={s.link} style={{opacity: .7}}>
-          <p>Ver un anuncio</p>
-          <IonIcon icon={logoVercel} style={{fontSize: '14pt'}}/>
         </div>
       </div>
   )
@@ -69,6 +69,11 @@ const Features = () => {
           <div className={s.feat} onClick={() => navigate('/compras')}>
               <IonIcon icon={cart} style={{fontSize: '14pt', marginRight: '8px'}}/>
               <p>Compras</p>
+          </div>
+
+          <div className={s.feat} onClick={() => navigate('/playlists')}>
+              <IonIcon icon={radioOutline} style={{fontSize: '14pt', marginRight: '8px'}}/>
+              <p>Playlists</p>
           </div>
 
           <p style={{fontSize: '.8em', width: '100%'}}>Próximamente más features...</p>

@@ -40,6 +40,7 @@ import React, {useEffect, useState} from "react";
 import SplashScreen from "./components/SplashScreen/SplashScreen";
 import ListaCompras from "./pages/Compras/ListaCompras";
 import Playlists from './pages/Playlists/Playlists';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 
 setupIonicReact();
@@ -48,6 +49,12 @@ const App: React.FC = () => {
   const [splashScreen, setSplashScreen] = useState(true);
 
   useEffect(() => {
+    const setStatusBar = async () => {
+      await StatusBar.setBackgroundColor({ color: '#222428' });
+      await StatusBar.setStyle({ style: Style.Dark });
+    };
+
+    setStatusBar();
     setTimeout(() => {
       setSplashScreen(false)
     }, 2500)

@@ -10,11 +10,28 @@
       text-align: center;
       font-family: 'Montserrat', sans-serif !important;
       opacity: .8;
-      font-size: 1em;
+      font-size: 16px;
    }
 
    .ionItem{
+      animation: init .3s 2s both;
+      margin-top: 20px;
       border-radius: 8px;
+   }
+
+   .no_internet{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding-inline: 5%;
+      margin-top: 20vh;
+
+      p{
+         opacity: 1;
+         font-size: 14px;
+         margin-bottom: 30px;
+      }
    }
 }
 

@@ -73,7 +73,7 @@ const TasksModal: React.FC<{compra: ComprasItem, open: boolean, setOpen: Functio
 const TaskItem: React.FC<{task: any, compraId: string, handleRemoveTask: Function, handleUpdateTask: Function, index: number}> = ({task, compraId, handleRemoveTask, handleUpdateTask, index}) => {
 
     return(
-        <IonItem className={s.ionitem} color='light' style={{animationDelay: `.${index+3}s`}}>
+        <IonItem className={s.ionitem} color='light' style={{animationDelay: `${index * 0.1}s`}}>
             <IonCheckbox slot='start' color='dark' checked={task.completed} onIonChange={() => handleUpdateTask(compraId, task.task)}/>
             <IonLabel slot='start'>{task.task}</IonLabel>
             <IonIcon 

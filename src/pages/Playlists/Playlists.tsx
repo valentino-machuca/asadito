@@ -32,7 +32,7 @@ const Playlists: React.FC = () => {
             <IonList style={{backgroundColor: '#222428', width: '100%'}}>
               {
                 playlistsItems.map((playlist, index) => (
-                  <IonItem color='dark' className={s.ionItem} key={index}>
+                  <IonItem color='dark' className={s.ionItem} style={{animationDelat: `${index * .3}s`}} key={index}>
                     {playlist}
                   </IonItem>
                 ))

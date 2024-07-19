@@ -75,8 +75,6 @@ const Features = () => {
               <IonIcon icon={radioOutline} style={{fontSize: '14pt', marginRight: '8px'}}/>
               <p>Playlists</p>
           </div>
-
-          <p style={{fontSize: '.8em', width: '100%'}}>Próximamente más features...</p>
       </div>
   )
 }
@@ -89,13 +87,13 @@ const Contact = () => {
     return (
         <div className={s.features}>
         <h3>Contacto y Soporte</h3>
-        <div className={s.feat} style={{width: '80%'}}>
+        <div className={s.feat} style={{width: '82%', justifyContent: 'space-between'}}>
           <p>valentinomachuca.dev@gmail.com</p>
-          <IonIcon icon={mail} style={{fontSize: '1.5em', marginLeft: '8px'}}/>
+          <IonIcon icon={mail} style={{fontSize: '14pt'}}/>
         </div>
-        <div className={s.feat} style={{width: '15%'}}
+        <div className={s.feat} style={{width: '13%'}}
              onClick={() => openSite('https://www.linkedin.com/in/valentino-machuca/')}>
-          <IonIcon icon={logoLinkedin} style={{fontSize: '1.5em'}}/>
+          <IonIcon icon={logoLinkedin} style={{fontSize: '14pt'}}/>
         </div>
       </div>
   )

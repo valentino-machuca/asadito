@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from "react";
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
@@ -10,12 +11,20 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { bonfireOutline, homeOutline, peopleOutline } from 'ionicons/icons';
+import { bonfireOutline, cartOutline, homeOutline, peopleOutline } from 'ionicons/icons';
 
-// Componentes
+// Pages
 import Home from './pages/Home/Home';
 import Calculator from './pages/Calculator/Calculator';
-import Tab3 from './pages/Anotador/Anotador';
+import Anotador from './pages/Anotador/Anotador';
+import ListaCompras from "./pages/Compras/ListaCompras";
+import Playlists from './pages/Playlists/Playlists';
+
+// Componentes
+import SplashScreen from "./components/SplashScreen/SplashScreen";
+
+// Capacitor
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -35,12 +44,6 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Anotador from './pages/Anotador/Anotador';
-import React, {useEffect, useState} from "react";
-import SplashScreen from "./components/SplashScreen/SplashScreen";
-import ListaCompras from "./pages/Compras/ListaCompras";
-import Playlists from './pages/Playlists/Playlists';
-import { StatusBar, Style } from '@capacitor/status-bar';
 
 
 setupIonicReact();
@@ -80,10 +83,16 @@ const App: React.FC = () => {
                 <IonLabel>Inicio</IonLabel>
               </IonTabButton>
 
+              <IonTabButton tab="compras" href="/compras">
+                <IonIcon icon={cartOutline} />
+                <IonLabel>Compras</IonLabel>
+              </IonTabButton>
+
               <IonTabButton tab="cuentas" href="/cuentas">
                 <IonIcon icon={peopleOutline} />
                 <IonLabel>Cuentas</IonLabel>
               </IonTabButton>
+
 
               <IonTabButton tab="anotador" href="/anotador">
                 <IonIcon icon={bonfireOutline} />

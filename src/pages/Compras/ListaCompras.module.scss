@@ -21,6 +21,10 @@
     }
 }
 
+.animation{
+    animation: init .3s both;
+}
+
 
 @keyframes init {
     0%{

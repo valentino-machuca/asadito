@@ -29,10 +29,10 @@ const Playlists: React.FC = () => {
 
           {
             network.status ? (
-            <IonList style={{backgroundColor: '#222428', width: '100%'}}>
+            <IonList style={{backgroundColor: '#222428', width: '100%', height: '80vh', overflowY: 'scroll'}}>
               {
                 playlistsItems.map((playlist, index) => (
-                  <IonItem color='dark' className={s.ionItem} style={{animationDelat: `${index * .3}s`}} key={index}>
+                  <IonItem color='dark' className={s.ionItem} style={{animationDelay: `${index * .3}s`}} key={index}>
                     {playlist}
                   </IonItem>
                 ))

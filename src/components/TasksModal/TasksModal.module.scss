@@ -13,16 +13,6 @@
             background-color: white;
             border-radius: 8px;
             margin-top: 10px;
-
-            .line{
-                transition: .3s;
-                position: absolute;
-                top: 30%;
-                left: 12%;
-                height: 1px;
-                background-color: #222222c2;
-                content: '.';
-            }
         }
     }
 }

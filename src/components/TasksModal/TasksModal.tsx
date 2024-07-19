@@ -75,14 +75,13 @@ const TaskItem: React.FC<{task: any, compraId: string, handleRemoveTask: Functio
     return(
         <IonItem className={s.ionitem} color='light' style={{animationDelay: `${index * 0.1}s`}}>
             <IonCheckbox slot='start' color='dark' checked={task.completed} onIonChange={() => handleUpdateTask(compraId, task.task)}/>
-            <IonLabel slot='start'>{task.task}</IonLabel>
+            <IonLabel style={{textDecoration: task.completed ? 'line-through' : 'none'}}>{task.task}</IonLabel>
             <IonIcon 
                 slot='end' 
                 icon={trash} 
                 style={{fontSize: '1.2em', color: 'rgb(103, 49, 49)'}}
                 onClick={() => handleRemoveTask(compraId, task.task)}
             />
-            <IonLabel slot='start' className={s.line} style={{width: task.completed ? '70%' : '0%'}}></IonLabel>
         </IonItem>
     );
 }

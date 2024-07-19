@@ -47,18 +47,18 @@ const ListaCompras: React.FC = () => {
             <IonContent fullscreen color='dark' style={{maxWidth: '800px'}}>
                 <HeaderCustom title='.compras' icon={cart} isIcon/>
 
-                <h3 style={{textAlign: 'center', marginBottom: '20px', fontSize: '1.2em'}}>Registros de compras</h3>
-                <IonItem style={{marginBottom: '20px', borderRadius: '8px', marginInline: '3%'}} color='light'>
+                <h3 className={s.animation} style={{textAlign: 'center', marginBottom: '20px', fontSize: '1.2em'}}>Registros de compras</h3>
+                <IonItem  className={s.animation} style={{marginBottom: '20px', borderRadius: '8px', marginInline: '3%'}} color='light'>
 
-                    <IonInput placeholder='Ingresar nueva lista' value={buy} onIonInput={(e) => setBuy(e.detail.value!)}/>
-                    <IonButton expand='block' slot='end' color='dark' onClick={() => nuevaCompra()} disabled={!buy.length}>
+                    <IonInput className={s.animation} placeholder='Ingresar nueva lista' value={buy} onIonInput={(e) => setBuy(e.detail.value!)}/>
+                    <IonButton className={s.animation} expand='block' slot='end' color='dark' onClick={() => nuevaCompra()} disabled={!buy.length}>
                         <IonIcon icon={add}/>
                     </IonButton>
 
                 </IonItem>
 
                 <IonItem className={s.list} color='dark'>
-                    <p>Desliza para acceder a los items de la compra o eliminarla</p>
+                    <p className={s.animation}>Desliza para acceder a los items de la compra o eliminarla</p>
                 </IonItem>
                 <IonList lines='inset' style={{backgroundColor: '#222428'}} ref={slidersRef}>
                     {

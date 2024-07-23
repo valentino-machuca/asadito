@@ -15,8 +15,25 @@
 
    .ionItem{
       animation: init .3s both;
+      position: relative;
       margin-top: 20px;
       border-radius: 8px;
+
+      .playlist_loader{
+         animation: loader 0.3s 2s both;
+         position: absolute;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         width: 96%;
+         height: 100%;
+         background-color: #e8e8e8;
+         border-radius: 8px;
+
+         .progress{
+            width: 80%;
+         }
+      }
    }
 
    .no_internet{
@@ -33,6 +50,8 @@
          margin-bottom: 30px;
       }
    }
+
+
 }
 
 @keyframes init {
@@ -43,5 +62,15 @@
    100%{
       opacity: 1;
       transform: translateY(0px);
+   }
+}
+
+@keyframes loader {
+   0%{
+      opacity: 1;
+   }
+   100%{
+      opacity: 0;
+      display: none;
    }
 }

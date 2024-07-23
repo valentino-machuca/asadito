@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonIcon, IonItem, IonList, IonPage } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonItem, IonList, IonPage, IonProgressBar } from '@ionic/react';
 import { radioOutline, reload } from 'ionicons/icons';
 import s from './Playlists.module.scss';
 
@@ -33,6 +33,9 @@ const Playlists: React.FC = () => {
               {
                 playlistsItems.map((playlist, index) => (
                   <IonItem color='dark' className={s.ionItem} style={{animationDelay: `${index * .3}s`}} key={index}>
+                    <div className={s.playlist_loader}>
+                      <IonProgressBar color='dark' type="indeterminate" className={s.progress}/>
+                    </div>
                     {playlist}
                   </IonItem>
                 ))

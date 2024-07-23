@@ -96,7 +96,7 @@ const App: React.FC = () => {
 
               <IonTabButton tab="anotador" href="/anotador">
                 <IonIcon icon={bonfireOutline} />
-                <IonLabel>Anotador de truco</IonLabel>
+                <IonLabel>Anotador</IonLabel>
               </IonTabButton>
             </IonTabBar>
           </IonTabs>

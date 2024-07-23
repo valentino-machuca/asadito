@@ -2,6 +2,7 @@
   animation: exit .5s 2s forwards;
   position: absolute;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
@@ -10,7 +11,14 @@
   background-color: #222428;
 
   img{
+    animation: entry_logo 1s .5s both;
     width: 50%;
+  }
+
+  .progress{
+    margin-top: 80px;
+    animation: opacity_progress .3s .3s both;
+    width: 40%;
   }
 }
 
@@ -22,5 +30,32 @@
   100%{
     opacity: 1;
     transform: translateY(-100vh);
+  }
+}
+
+@keyframes entry_logo {
+  0%{
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  20%{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  40%{
+    scale: 1.2;
+    transform: translateY(0);
+  }
+  100%{
+    scale: 1;
+  }
+}
+
+@keyframes opacity_progress {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
   }
 }

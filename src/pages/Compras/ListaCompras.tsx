@@ -47,7 +47,7 @@ const ListaCompras: React.FC = () => {
             <IonContent fullscreen color='dark' style={{maxWidth: '800px'}}>
                 <HeaderCustom title='.compras' icon={cart} isIcon/>
 
-                <h3 className={s.animation} style={{textAlign: 'center', marginBottom: '20px', fontSize: '1.2em'}}>Registros de compras</h3>
+                <h3 className={s.animation} style={{textAlign: 'center', marginBottom: '20px', fontSize: '1rem'}}>Registros de compras</h3>
                 <IonItem  className={s.animation} style={{marginBottom: '20px', borderRadius: '8px', marginInline: '3%'}} color='light'>
 
                     <IonInput className={s.animation} placeholder='Ingresar nueva lista' value={buy} onIonInput={(e) => setBuy(e.detail.value!)}/>

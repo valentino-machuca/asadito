@@ -79,24 +79,24 @@ const App: React.FC = () => {
 
             <IonTabBar slot="bottom" color='dark'>
               <IonTabButton tab="home" href="/home">
-                <IonIcon icon={homeOutline} />
-                <IonLabel>Inicio</IonLabel>
+                <IonIcon icon={homeOutline} style={{fontSize: '1.4rem'}}/>
+                <IonLabel style={{fontSize: '.7rem'}}>Inicio</IonLabel>
               </IonTabButton>
 
               <IonTabButton tab="compras" href="/compras">
-                <IonIcon icon={cartOutline} />
-                <IonLabel>Compras</IonLabel>
+                <IonIcon icon={cartOutline} style={{fontSize: '1.4rem'}}/>
+                <IonLabel style={{fontSize: '.7rem'}}>Compras</IonLabel>
               </IonTabButton>
 
               <IonTabButton tab="cuentas" href="/cuentas">
-                <IonIcon icon={peopleOutline} />
-                <IonLabel>Cuentas</IonLabel>
+                <IonIcon icon={peopleOutline} style={{fontSize: '1.4rem'}}/>
+                <IonLabel style={{fontSize: '.7rem'}}>Cuentas</IonLabel>
               </IonTabButton>
 
 
               <IonTabButton tab="anotador" href="/anotador">
-                <IonIcon icon={bonfireOutline} />
-                <IonLabel>Anotador</IonLabel>
+                <IonIcon icon={bonfireOutline} style={{fontSize: '1.4rem'}}/>
+                <IonLabel style={{fontSize: '.7rem'}}>Anotador</IonLabel>
               </IonTabButton>
             </IonTabBar>
           </IonTabs>

@@ -86,15 +86,15 @@ const Contact = () => {
 
     return (
         <div className={s.features}>
-        <h3>Contacto y Soporte</h3>
-        <div className={s.feat} style={{width: '82%', justifyContent: 'space-between'}}>
-          <p>valentinomachuca.dev@gmail.com</p>
-          <IonIcon icon={mail} style={{fontSize: '14pt'}}/>
-        </div>
-        <div className={s.feat} style={{width: '13%'}}
-             onClick={() => openSite('https://www.linkedin.com/in/valentino-machuca/')}>
-          <IonIcon icon={logoLinkedin} style={{fontSize: '14pt'}}/>
-        </div>
+          <h3>Contacto y Soporte</h3>
+          <div className={s.feat} style={{width: '80%', justifyContent: 'space-between'}}>
+            <p>valentinomachuca.dev@gmail.com</p>
+            <IonIcon icon={mail} style={{fontSize: '1.3rem'}}/>
+          </div>
+          <div className={s.feat} style={{width: '15%', display: 'flex', justifyContent: 'center'}}
+              onClick={() => openSite('https://www.linkedin.com/in/valentino-machuca/')}>
+            <IonIcon icon={logoLinkedin} style={{fontSize: '1.3rem'}}/>
+          </div>
       </div>
   )
 }

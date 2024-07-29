@@ -13,6 +13,13 @@ const FormModal: React.FC<{isOpen: boolean, setIsOpen: any, form: Persona, setFo
         }
     };
 
+    const handleSelector = (v : any) => {
+
+        if(v === 'come') setForm({...form, gasto_bebida: ''})
+        if(v === 'toma') setForm({...form, gasto_comida: ''})
+        setSelectState(v); 
+    }
+
     const updateSelectForm = () => {
         if(selectState === 'come_toma') setForm((prev: any) => ({...prev, come: true, toma: true}));
         if(selectState === 'come') setForm((prev: any) => ({...prev, come: true, toma: false}));
@@ -51,7 +58,7 @@ const FormModal: React.FC<{isOpen: boolean, setIsOpen: any, form: Persona, setFo
                         </div>}
                         <div className={s.input}>
                             <span>¿Come y toma?</span>
-                            <IonSelect aria-label="come" interface="popover" value={selectState} onIonChange={(e) => {setSelectState(e.detail.value); setForm({...form, gasto_comida: '', gasto_bebida: ''})}} className={s.input_field}>
+                            <IonSelect aria-label="come" interface="popover" value={selectState} onIonChange={(e) => handleSelector(e.detail.value)} className={s.input_field}>
                                 <IonSelectOption value="come_toma">Come y toma</IonSelectOption>
                                 <IonSelectOption value="come">Solo come</IonSelectOption>
                                 <IonSelectOption value="toma">Solo toma</IonSelectOption>

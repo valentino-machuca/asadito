@@ -72,7 +72,7 @@ const Calculator: React.FC = () => {
                 ],
               })
             }
-          ><IonIcon icon={reload} style={{fontSize: '1.5em'}}/></IonButton>}
+          ><IonIcon icon={reload} style={{fontSize: '1rem'}}/></IonButton>}
         </div>
 
         <div className={s.container}>
@@ -89,9 +89,9 @@ const Calculator: React.FC = () => {
             }
           </div>
           <IonFabButton onClick={() => setModalOpen(true)} color='light' size='small'>
-            <IonIcon icon={add} style={{fontSize: '1.5em'}}/>
+            <IonIcon icon={add} style={{fontSize: '1.3rem'}}/>
           </IonFabButton>
-          <div style={{height: '7vh', width: '100%'}}>
+          <div style={{width: '100%'}}>
             <button disabled={personas.length < 2} className={personas.length >= 2 ? s.calcular : s.cacular_dis}
                     onClick={() => calcularCuentas()}>Calcular
             </button>
@@ -127,7 +127,7 @@ const ModalResultados : React.FC<{
                     <Transaction key={i} result={r} delay={i}/>
                   ))
                 }
-              </> : <p>Cuentas de comida al día ✔️</p>
+              </> : <p>Cuentas al día ✔️</p>
             }
             </div>
           
@@ -141,7 +141,7 @@ const ModalResultados : React.FC<{
                       <Transaction key={i} result={r} delay={i}/>
                     ))
                   }
-                </> : <p>Cuentas de bebida al día ✔️</p>
+                </> : <p>Cuentas al día ✔️</p>
               }
             </div>
         </div>

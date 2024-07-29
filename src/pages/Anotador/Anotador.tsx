@@ -18,7 +18,7 @@ const Anotador: React.FC = () => {
 
   const presentToast = (position: 'top' | 'middle' | 'bottom', winner: string) => {
     present({
-      message: `${winner} ha ganado! Paliza atroz, sobrados.`,
+      message: `${winner} ha ganado!`,
       duration: 3000,
       position: position,
     });
@@ -30,8 +30,8 @@ const Anotador: React.FC = () => {
     let array = [...equipo];
     setEquipo(addPoint(array));
 
-    if(equipo1.flat().length === 30) presentToast('bottom', 'Nuestro equipo')
-    if(equipo2.flat().length === 30) presentToast('bottom', 'El equipo de ellos')
+    if(equipo1.flat().length === 30) presentToast('top', 'Nuestro equipo')
+    if(equipo2.flat().length === 30) presentToast('top', 'El equipo de ellos')
   }
 
   function deletePointTeam(equipo: any, setEquipo: any): any{

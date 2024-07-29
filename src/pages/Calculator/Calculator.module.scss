@@ -4,6 +4,7 @@
    flex-direction: column;
    justify-content: flex-start;
    align-items: center;
+   height: 85vh;
    
    .persons{
       animation: init .5s .2s both;
@@ -14,8 +15,8 @@
       overflow-y: scroll;
       overflow-x: hidden;
       width: 100%;
-      height: 60vh;
-      max-height: 60vh;
+      height: 63vh;
+      max-height: 63vh;
       margin-bottom: 5%;
       margin-top: 5%;
 
@@ -30,7 +31,7 @@
       transition: .2s;
       width: 100%;
       height: 7vh;
-      font-size: 1.2em;
+      font-size: 1rem;
       margin-top: 2em;
       font-family: 'Montserrat', sans-serif !important;
       font-weight: 600;
@@ -61,12 +62,13 @@
       width: 100%;
 
       h3{
-         margin-bottom: 10px;
+         font-size: 1.2rem;
+         margin-bottom: 1rem;
          font-family: 'Montserrat', sans-serif !important;
       }
 
       p{
-         margin-bottom: 40px;
+         font-size: .9rem;
          font-family: 'Montserrat', sans-serif !important;
       }
    }

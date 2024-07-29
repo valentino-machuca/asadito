@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import s from './CardPerson.module.scss';
 import { IonIcon } from '@ionic/react';
-import { beer, restaurant, trash } from 'ionicons/icons';
+import { arrowDown, beer, chevronDown, restaurant, trash } from 'ionicons/icons';
 import formatearImporte from '../../helpers/formatearImporte';
 
 const CardPerson: React.FC<{person: Persona, deletePerson: any}> = ({person, deletePerson}) => {
@@ -20,8 +20,9 @@ const CardPerson: React.FC<{person: Persona, deletePerson: any}> = ({person, del
     <div className={s.container}>
       <div className={s.info}>
         <div className={s.avatar} onClick={() => setOpenDetail(prev => !prev)}>
-          {person.toma && <IonIcon aria-hidden="true" icon={beer} className={s.icon} style={{color: '#f2ae27'}}/>}
-          {person.come && <IonIcon aria-hidden="true" icon={restaurant} className={s.icon} style={{color: '#848785'}}/>}
+          <IonIcon icon={chevronDown} style={{marginRight: '10px', rotate: openDetail ? '180deg' : '0deg', transition: '.3s'}}/>
+          {person.come && <IonIcon aria-hidden="true" icon={restaurant} className={s.icon} style={{color: '#555'}}/>}
+          {person.toma && <IonIcon aria-hidden="true" icon={beer} className={s.icon} style={{color: '#555'}}/>}
           <p className={s.nombre}>{person.nombre}</p>
         </div>
         <p className={s.monto}>{formatearImporte(monto)}</p>

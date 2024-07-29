@@ -43,20 +43,20 @@ const TasksModal: React.FC<{compra: ComprasItem, open: boolean, setOpen: Functio
         </IonHeader>
         <IonContent className={`${s.ioncontent} ion-padding`} color='dark'>
 
-            <IonItem style={{marginBottom: '20px', borderRadius: '8px'}} color='light'>
-
-                <IonButton expand='block' slot='end' color='dark' disabled={!value.length}
-                onClick={async () => {
-                    await addTaskToCompra(currentCompra.id, value);
-                    setValue('');
-                }}>
+            <IonItem style={{marginBottom: '30px', borderRadius: '8px'}} color='light'>
+                <IonInput placeholder='Escribe una compra...' value={value} onIonInput={(e) => setValue(e.detail.value!)}/>
+                <IonButton slot='end' color='dark' disabled={!value.length}
+                    onClick={async () => {
+                        await addTaskToCompra(currentCompra.id, value);
+                        setValue('');
+                    }}
+                        style={{margin: 0, width: '12%', height: '65%'}}
+                    >
                     <IonIcon icon={add}/>
                 </IonButton>
-                <IonInput placeholder='Añadir item...' value={value} onIonInput={(e) => setValue(e.detail.value!)}/>
-
             </IonItem>
 
-            <h3>Lista de compras</h3>
+            <h5>Lista de compras</h5>
             <IonList color='dark' style={{backgroundColor: '#222428'}}>
                 {   
                     currentCompra?.tasks.map((task, index) => (
@@ -74,14 +74,17 @@ const TaskItem: React.FC<{task: any, compraId: string, handleRemoveTask: Functio
 
     return(
         <IonItem className={s.ionitem} color='light' style={{animationDelay: `${index * 0.1}s`}}>
-            <IonCheckbox slot='start' color='dark' checked={task.completed} onIonChange={() => handleUpdateTask(compraId, task.task)}/>
-            <IonLabel style={{textDecoration: task.completed ? 'line-through' : 'none'}}>{task.task}</IonLabel>
-            <IonIcon 
-                slot='end' 
-                icon={trash} 
-                style={{fontSize: '1.2em', color: 'rgb(103, 49, 49)'}}
-                onClick={() => handleRemoveTask(compraId, task.task)}
-            />
+            <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', height: '100%', width: '90%'}}>
+                <IonCheckbox slot='start' color='dark' checked={task.completed} onIonChange={() => handleUpdateTask(compraId, task.task)}/>
+                <IonLabel style={{textDecoration: task.completed ? 'line-through' : 'none', marginLeft: '20px', fontSize: '1rem'}}>{task.task}</IonLabel>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '10%'}} onClick={() => handleRemoveTask(compraId, task.task)}>
+                <IonIcon 
+                    slot='end' 
+                    icon={trash} 
+                    style={{fontSize: '1.3rem', color: 'rgb(103, 49, 49)'}}
+                />
+            </div>
         </IonItem>
     );
 }

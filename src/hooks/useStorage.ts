@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
 import { Storage } from '@ionic/storage';
 
 const COMPRAS_KEY = 'compras';
@@ -8,7 +8,7 @@ export interface ComprasItem {
     name: string;
     completed: boolean;
     date: string;
-    tasks: {task: string, completed: boolean}[]
+    tasks: { task: string; completed: boolean }[];
 }
 
 export function useStorage() {
@@ -17,75 +17,87 @@ export function useStorage() {
 
     useEffect(() => {
         const initStorage = async () => {
-
-            const newStore = new Storage({ // Configuración de db
-                name: 'asaditodb'
-            });
-
-            const store = await newStore.create(); // Crear db
-            setStore(store);
-
-            const storedCompras = await store.get(COMPRAS_KEY) || []; // Obtener compras
-            setCompras(storedCompras);
-        }
+            try {
+                const newStore = new Storage({ name: 'asaditodb' });
+                const store = await newStore.create();
+                setStore(store);
+                const storedCompras: ComprasItem[] = (await store.get(COMPRAS_KEY)) ?? [];
+                setCompras(storedCompras);
+            } catch (error) {
+                console.error('Error al inicializar el storage:', error);
+            }
+        };
         initStorage();
     }, []);
 
-    // Crear compra
     const createCompra = async (name: string) => {
-        const nuevaCompra = {
-            id: '' + new Date().getTime(),
-            name,
-            completed: false,
-            date: '' + new Date(),
-            tasks: [],
+        try {
+            const nuevaCompra: ComprasItem = {
+                id: String(new Date().getTime()),
+                name,
+                completed: false,
+                date: String(new Date()),
+                tasks: [],
+            };
+            const nuevasCompras = [...compras, nuevaCompra];
+            setCompras(nuevasCompras);
+            await store?.set(COMPRAS_KEY, nuevasCompras);
+        } catch (error) {
+            console.error('Error al crear compra:', error);
         }
-        const nuevasCompras = [...compras, nuevaCompra];
-        setCompras(nuevasCompras);
-        await store?.set(COMPRAS_KEY, nuevasCompras);
-    }
+    };
 
     const removeCompra = async (id: string) => {
-        const filteredCompras = compras.filter(item => item.id !== id);
-        setCompras(filteredCompras);
-        await store?.set(COMPRAS_KEY, filteredCompras);
-    }
+        try {
+            const filtered = compras.filter(item => item.id !== id);
+            setCompras(filtered);
+            await store?.set(COMPRAS_KEY, filtered);
+        } catch (error) {
+            console.error('Error al eliminar compra:', error);
+        }
+    };
 
     const addTaskToCompra = async (compraId: string, task: string) => {
-        const updatedCompras = compras.map(compra => {
-            if (compra.id === compraId) {
-                return { ...compra, tasks: [...compra.tasks, {
-                    task,
-                    completed: false,
-                }] };
-            }
-            return compra;
-        });
-        setCompras([...updatedCompras]);
-        await store?.set(COMPRAS_KEY, updatedCompras);
-    }
+        try {
+            const updated = compras.map(compra =>
+                compra.id === compraId
+                    ? { ...compra, tasks: [...compra.tasks, { task, completed: false }] }
+                    : compra
+            );
+            setCompras(updated);
+            await store?.set(COMPRAS_KEY, updated);
+        } catch (error) {
+            console.error('Error al agregar tarea:', error);
+        }
+    };
 
     const removeTaskFromCompra = async (compraId: string, taskName: string) => {
-        const updatedCompras = compras.map(compra => {
-            if (compra.id === compraId) {
-                return { ...compra, tasks: compra.tasks.filter(task => task.task !== taskName) };
-            }
-            return compra;
-        });
-        setCompras(updatedCompras);
-        await store?.set(COMPRAS_KEY, updatedCompras);
-    }
+        try {
+            const updated = compras.map(compra =>
+                compra.id === compraId
+                    ? { ...compra, tasks: compra.tasks.filter(t => t.task !== taskName) }
+                    : compra
+            );
+            setCompras(updated);
+            await store?.set(COMPRAS_KEY, updated);
+        } catch (error) {
+            console.error('Error al eliminar tarea:', error);
+        }
+    };
 
     const updateTaskStatus = async (compraId: string, taskName: string) => {
-        const updatedCompras = compras.map(compra => {
-            if (compra.id === compraId) {
-                return { ...compra, tasks: compra.tasks.map(task => task.task === taskName ? { ...task, completed: !task.completed} : task) };
-            }
-            return compra;
-        });
-        setCompras(updatedCompras);
-        await store?.set(COMPRAS_KEY, updatedCompras);
-    }
+        try {
+            const updated = compras.map(compra =>
+                compra.id === compraId
+                    ? { ...compra, tasks: compra.tasks.map(t => t.task === taskName ? { ...t, completed: !t.completed } : t) }
+                    : compra
+            );
+            setCompras(updated);
+            await store?.set(COMPRAS_KEY, updated);
+        } catch (error) {
+            console.error('Error al actualizar estado de tarea:', error);
+        }
+    };
 
     return {
         compras,
@@ -93,6 +105,6 @@ export function useStorage() {
         removeCompra,
         addTaskToCompra,
         removeTaskFromCompra,
-        updateTaskStatus
-    }
+        updateTaskStatus,
+    };
 }

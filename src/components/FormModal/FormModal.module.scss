@@ -1,43 +1,68 @@
-.formulario{
+.formulario {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    height: 20%;
+    /* Replace height: 20% (broken on short screens) with padding-based height */
+    height: auto;
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.466);
 
-    .input{
-       animation: init .3s both;
-       width: 100%;
-       display: flex;
-       flex-direction: column;
-       justify-content: space-between;
-       align-items: center;
-       margin-top: 20px;
+    .input {
+        animation: init .3s both;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 20px;
 
-       span{
-          width: 95%;
-          font-family: 'Montserrat', sans-serif !important;
-          font-size: .8rem;
-       }
- 
-       .input_field{
-          width: 95%;
-          background-color: rgba(255, 255, 255, 0.975);
-          color: #222222;
-          margin-top: 10px;
-          font-size: .7rem;
-          --padding-start: 10px;
-          border-radius:5px;
-          font-family: 'Montserrat', sans-serif !important;
-       }
+        span {
+            width: 95%;
+            font-family: 'Montserrat', sans-serif !important;
+            font-size: .8rem;
+        }
+
+        .input_field {
+            width: 95%;
+            background-color: rgba(255, 255, 255, 0.975);
+            color: #222222;
+            margin-top: 8px;
+            font-size: .75rem;
+            --padding-start: 10px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif !important;
+        }
     }
 
+    /*
+      Tablet portrait: place food and drink inputs side by side
+      to make better use of the wider screen.
+    */
+    @media (min-width: 600px) {
+        .input {
+            width: 48%;
+
+            span { font-size: .85rem; }
+            .input_field { font-size: .8rem; }
+
+            /* Selector and name fields stay full width */
+            &:first-child, &:last-child {
+                width: 100%;
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        gap: 8px;
+
+        .input span { font-size: .9rem; }
+        .input .input_field { font-size: .85rem; }
+    }
 }
 
-.button{
+.button {
     transition: .1s;
     color: #222222;
     padding: .2em;
@@ -45,16 +70,19 @@
     font-family: 'Montserrat', sans-serif !important;
     font-weight: 400;
     text-transform: capitalize;
- }
 
- @keyframes init {
-   0%{
-      opacity: 0;
-      transform: translateX(100px);
-   }
+    @media (min-width: 768px) {
+        padding: .3em;
+    }
+}
 
-  100%{
-      opacity: 1;
-      transform: translateX(0);
-   }
- }
+@keyframes init {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

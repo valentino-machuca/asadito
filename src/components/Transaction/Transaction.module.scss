@@ -1,56 +1,71 @@
-.container{
-   animation: init .3s both;
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   background-color: white;
-   padding: .5em;
-   width: 100%;
-   border-radius: 5px;
-   margin-bottom: 20px;
-   color: #222;
-   
-   .deudor, .acreedor{
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      width: 40%;
+.container {
+    animation: init .3s both;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: .6em .5em;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    color: #222;
 
-      p{
-         padding: 0;
-         margin: 0;
-         margin-left: 10px;
-         font-family: 'Montserrat', sans-serif !important;
-      }
-   }
+    .deudor, .acreedor {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 38%;
 
-   .acreedor{
-      justify-content: flex-end;
-      margin-right: 10px;
-   }
+        p {
+            padding: 0;
+            margin: 0;
+            margin-left: 8px;
+            font-size: .85rem;
+            font-family: 'Montserrat', sans-serif !important;
+            word-break: break-word;
+        }
+    }
 
-   .arrow{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    .acreedor {
+        justify-content: flex-end;
+        margin-right: 8px;
 
-      p{
-         margin: 0;
-         padding: 0;
-         margin-top: 5px;
-         font-family: 'Montserrat', sans-serif !important;
-      }
-   }
+        p { margin-left: 0; margin-right: 8px; }
+    }
+
+    .arrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+
+        p {
+            margin: 0;
+            padding: 0;
+            margin-top: 4px;
+            font-size: .75rem;
+            font-family: 'Montserrat', sans-serif !important;
+        }
+    }
+
+    /* Tablet: more padding and readable font */
+    @media (min-width: 768px) {
+        padding: .8em .7em;
+        margin-bottom: 20px;
+
+        .deudor p, .acreedor p { font-size: .95rem; }
+        .arrow p { font-size: .85rem; }
+    }
 }
 
 @keyframes init {
-   0%{
-      opacity: 0;
-      transform: translateY(100px);
-   }
-   100%{
-      opacity: 1;
-      transform: translateY(0);
-   }
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -4,8 +4,21 @@ http://ionicframework.com/docs/theming/ */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 
-/* Responsive fonts */
+/*
+  Base font — mobile first.
+  Previous value `4vw` caused ~30px on a 768px tablet (too large).
+  Fixed values per breakpoint give predictable, readable sizes on all devices.
+*/
+html { font-size: 15px; }        /* default: small phone  */
 
-html{
-    font-size: 4vw;
+@media (min-width: 480px) {
+    html { font-size: 16px; }    /* large phone           */
+}
+
+@media (min-width: 768px) {
+    html { font-size: 17px; }    /* tablet portrait       */
+}
+
+@media (min-width: 1024px) {
+    html { font-size: 18px; }    /* tablet landscape      */
 }

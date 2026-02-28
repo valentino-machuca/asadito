@@ -18,7 +18,14 @@
         flex-direction: column;
         justify-content: flex-start;
         width: 50%;
-        height: 80vh;
+        /*
+          Replace fixed 80vh: on a landscape tablet (height ~600px), 80vh = 480px which
+          is reasonable, but on portrait tablets (height ~1024px) it was too tall.
+          Use a capped min-height approach instead.
+        */
+        height: 72vh;
+        min-height: 320px;
+        max-height: 640px;
 
         h3 {
             text-align: center;
@@ -30,30 +37,53 @@
 
         .matchsticks {
             width: 100%;
-            height: 80%;
+            flex: 1;
             padding-top: 20px;
             border-top: 2px solid rgba(255, 255, 255, 0.265);
+            overflow: hidden;
         }
 
         .buttons {
             animation: init .3s .5s both;
             width: 100%;
             margin-top: 10px;
+            padding: 8px 0;
             display: flex;
             justify-content: space-evenly;
             align-items: center;
 
             .button {
                 transition: .3s;
-                font-size: 1.5rem;
+                font-size: 1.6rem;
                 border-radius: 100%;
-                padding: .3em;
+                padding: .35em;
 
                 &:active {
                     transition: .3s;
                     background-color: rgba(255, 255, 255, 0.075);
                 }
             }
+        }
+
+        /* Tablet portrait */
+        @media (min-width: 768px) {
+            height: 68vh;
+            max-height: 720px;
+
+            h3 {
+                font-size: 1.15rem;
+                letter-spacing: 1.5px;
+            }
+
+            .buttons .button {
+                font-size: 2rem;
+                padding: .4em;
+            }
+        }
+
+        /* Tablet landscape */
+        @media (min-width: 1024px) {
+            height: 65vh;
         }
     }
 }
@@ -64,24 +94,35 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding: 16px 0;
 
     .button {
         transition: .1s;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 40%;
+        /* Mobile: wider so it's easy to tap */
+        width: 55%;
+        max-width: 280px;
         background-color: rgba(255, 255, 255, 0.975);
         color: #222222;
-        border-radius: 5px;
+        border-radius: 8px;
         text-align: center;
-        padding: .3em;
-        font-size: 1.2rem;
+        padding: .5em;
+        font-size: 1rem;
+        font-family: 'Montserrat', sans-serif;
 
         &:active {
             transition: .1s;
             scale: .99;
             background-color: rgba(255, 255, 255, 0.33);
+        }
+
+        /* Tablet: narrower relative to screen but larger in absolute terms */
+        @media (min-width: 768px) {
+            width: 35%;
+            font-size: 1.05rem;
+            padding: .6em;
         }
     }
 }

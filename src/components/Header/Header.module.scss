@@ -1,29 +1,46 @@
 @import '../../theme/variables.css';
 
-.container{
-   animation: init .4s .3s both;
-   display: flex;
-   align-items: center;
-   width: 95%;
-   height: 7vh;
-   font-size: 1.6rem;
-   font-weight: 500;
-   letter-spacing: 2px;
-   font-family: 'Montserrat', sans-serif !important;
+.container {
+    animation: init .4s .3s both;
+    display: flex;
+    align-items: center;
+    width: 95%;
+    /* Replace fixed 7vh with min-height + padding so it adapts to font size */
+    min-height: 52px;
+    padding: 10px 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    font-family: 'Montserrat', sans-serif !important;
 
-   img{
-      width: 15%;
-   }
+    img {
+        /* clamp avoids both too-small on tiny phones and too-large on tablets */
+        width: clamp(36px, 12%, 52px);
+    }
+
+    @media (min-width: 600px) {
+        font-size: 1.65rem;
+        padding: 12px 0;
+    }
+
+    @media (min-width: 768px) {
+        font-size: 1.8rem;
+        min-height: 64px;
+        padding: 16px 0;
+
+        img {
+            width: clamp(48px, 8%, 64px);
+        }
+    }
 }
 
 @keyframes init {
-   0%{
-      opacity: 0;
-      transform: translateX(-100px);
-   }
-
-   100%{
-      opacity: 1;
-      transform: translateX(0);
-   }
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Storage } from '@ionic/storage';
 
-const COMPRAS_KEY = 'compras';
+const SHOPPING_LISTS_KEY = 'compras';
 
-export interface ComprasItem {
+export interface ShoppingListItem {
     id: string;
     name: string;
     completed: boolean;
@@ -13,7 +13,7 @@ export interface ComprasItem {
 
 export function useStorage() {
     const [store, setStore] = useState<Storage | null>(null);
-    const [compras, setCompras] = useState<ComprasItem[]>([]);
+    const [shoppingLists, setShoppingLists] = useState<ShoppingListItem[]>([]);
 
     useEffect(() => {
         const initStorage = async () => {
@@ -21,90 +21,90 @@ export function useStorage() {
                 const newStore = new Storage({ name: 'asaditodb' });
                 const store = await newStore.create();
                 setStore(store);
-                const storedCompras: ComprasItem[] = (await store.get(COMPRAS_KEY)) ?? [];
-                setCompras(storedCompras);
+                const stored: ShoppingListItem[] = (await store.get(SHOPPING_LISTS_KEY)) ?? [];
+                setShoppingLists(stored);
             } catch (error) {
-                console.error('Error al inicializar el storage:', error);
+                console.error('Error initializing storage:', error);
             }
         };
         initStorage();
     }, []);
 
-    const createCompra = async (name: string) => {
+    const createList = async (name: string) => {
         try {
-            const nuevaCompra: ComprasItem = {
+            const newList: ShoppingListItem = {
                 id: String(new Date().getTime()),
                 name,
                 completed: false,
                 date: String(new Date()),
                 tasks: [],
             };
-            const nuevasCompras = [...compras, nuevaCompra];
-            setCompras(nuevasCompras);
-            await store?.set(COMPRAS_KEY, nuevasCompras);
+            const updated = [...shoppingLists, newList];
+            setShoppingLists(updated);
+            await store?.set(SHOPPING_LISTS_KEY, updated);
         } catch (error) {
-            console.error('Error al crear compra:', error);
+            console.error('Error creating list:', error);
         }
     };
 
-    const removeCompra = async (id: string) => {
+    const removeList = async (id: string) => {
         try {
-            const filtered = compras.filter(item => item.id !== id);
-            setCompras(filtered);
-            await store?.set(COMPRAS_KEY, filtered);
+            const filtered = shoppingLists.filter(item => item.id !== id);
+            setShoppingLists(filtered);
+            await store?.set(SHOPPING_LISTS_KEY, filtered);
         } catch (error) {
-            console.error('Error al eliminar compra:', error);
+            console.error('Error removing list:', error);
         }
     };
 
-    const addTaskToCompra = async (compraId: string, task: string) => {
+    const addTask = async (listId: string, task: string) => {
         try {
-            const updated = compras.map(compra =>
-                compra.id === compraId
-                    ? { ...compra, tasks: [...compra.tasks, { task, completed: false }] }
-                    : compra
+            const updated = shoppingLists.map(list =>
+                list.id === listId
+                    ? { ...list, tasks: [...list.tasks, { task, completed: false }] }
+                    : list
             );
-            setCompras(updated);
-            await store?.set(COMPRAS_KEY, updated);
+            setShoppingLists(updated);
+            await store?.set(SHOPPING_LISTS_KEY, updated);
         } catch (error) {
-            console.error('Error al agregar tarea:', error);
+            console.error('Error adding task:', error);
         }
     };
 
-    const removeTaskFromCompra = async (compraId: string, taskName: string) => {
+    const removeTask = async (listId: string, taskName: string) => {
         try {
-            const updated = compras.map(compra =>
-                compra.id === compraId
-                    ? { ...compra, tasks: compra.tasks.filter(t => t.task !== taskName) }
-                    : compra
+            const updated = shoppingLists.map(list =>
+                list.id === listId
+                    ? { ...list, tasks: list.tasks.filter(t => t.task !== taskName) }
+                    : list
             );
-            setCompras(updated);
-            await store?.set(COMPRAS_KEY, updated);
+            setShoppingLists(updated);
+            await store?.set(SHOPPING_LISTS_KEY, updated);
         } catch (error) {
-            console.error('Error al eliminar tarea:', error);
+            console.error('Error removing task:', error);
         }
     };
 
-    const updateTaskStatus = async (compraId: string, taskName: string) => {
+    const updateTaskStatus = async (listId: string, taskName: string) => {
         try {
-            const updated = compras.map(compra =>
-                compra.id === compraId
-                    ? { ...compra, tasks: compra.tasks.map(t => t.task === taskName ? { ...t, completed: !t.completed } : t) }
-                    : compra
+            const updated = shoppingLists.map(list =>
+                list.id === listId
+                    ? { ...list, tasks: list.tasks.map(t => t.task === taskName ? { ...t, completed: !t.completed } : t) }
+                    : list
             );
-            setCompras(updated);
-            await store?.set(COMPRAS_KEY, updated);
+            setShoppingLists(updated);
+            await store?.set(SHOPPING_LISTS_KEY, updated);
         } catch (error) {
-            console.error('Error al actualizar estado de tarea:', error);
+            console.error('Error updating task status:', error);
         }
     };
 
     return {
-        compras,
-        createCompra,
-        removeCompra,
-        addTaskToCompra,
-        removeTaskFromCompra,
+        shoppingLists,
+        createList,
+        removeList,
+        addTask,
+        removeTask,
         updateTaskStatus,
     };
 }

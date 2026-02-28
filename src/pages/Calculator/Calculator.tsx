@@ -1,66 +1,65 @@
 import React, { useState } from 'react';
 import { IonContent, IonPage, IonButton, IonIcon, IonFabButton, useIonAlert } from '@ionic/react';
 import { add, people, reload } from 'ionicons/icons';
-import type { Persona, SaldosResult } from '../../types/persona';
-import calcularSaldos from '../../helpers/cuentas';
+import type { Person, ExpensesResult } from '../../types/person';
+import calculateBalances from '../../helpers/expenses';
 
-// Componentes
+// Components
 import HeaderCustom from '../../components/Header/Header';
 import CardPerson from '../../components/CardPerson/CardPerson';
-import Transaction from '../../components/Transaction/Transaction';
 import FormModal from '../../components/FormModal/FormModal';
-import ModalResultados from '../../components/ModalResultados/ModalResultados';
+import ResultsModal from '../../components/ResultsModal/ResultsModal';
 
 import s from './Calculator.module.scss';
 
-const FORM_INICIAL: Persona = { nombre: '', gasto_comida: '', gasto_bebida: '', toma: true, come: true };
+const INITIAL_FORM: Person = { name: '', foodExpense: '', drinkExpense: '', drinks: true, eats: true };
 
-const RESULTS_INICIAL: SaldosResult = {
-    transacciones_comida: [],
-    transacciones_bebida: [],
+const INITIAL_RESULTS: ExpensesResult = {
+    foodTransactions: [],
+    drinkTransactions: [],
 };
 
 const Calculator: React.FC = () => {
     const [presentAlert] = useIonAlert();
 
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [resultsOpen, setResultsOpen] = useState<boolean>(false);
+    const [formOpen, setFormOpen] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [form, setForm] = useState<Persona>(FORM_INICIAL);
-    const [personas, setPersonas] = useState<Persona[]>([]);
-    const [results, setResults] = useState<SaldosResult>(RESULTS_INICIAL);
+    const [form, setForm] = useState<Person>(INITIAL_FORM);
+    const [people, setPeople] = useState<Person[]>([]);
+    const [results, setResults] = useState<ExpensesResult>(INITIAL_RESULTS);
 
-    const agregarPersona = () => {
-        if (personas.find(p => p.nombre === form.nombre)) {
+    const addPerson = () => {
+        if (people.find(p => p.name === form.name)) {
             alert('Ya existe una persona con ese nombre');
             return;
         }
-        setPersonas(prev => [...prev, form]);
-        setForm(FORM_INICIAL);
-        setModalOpen(false);
+        setPeople(prev => [...prev, form]);
+        setForm(INITIAL_FORM);
+        setFormOpen(false);
     };
 
-    const deletePerson = (nombre: string) => {
-        setPersonas(prev => prev.filter(p => p.nombre !== nombre));
+    const deletePerson = (name: string) => {
+        setPeople(prev => prev.filter(p => p.name !== name));
     };
 
-    const calcularCuentas = () => {
+    const calculateExpenses = () => {
         setLoading(true);
-        setIsOpen(true);
+        setResultsOpen(true);
         setTimeout(() => {
-            setResults(calcularSaldos(personas));
+            setResults(calculateBalances(people));
             setLoading(false);
         }, 1000);
     };
 
-    const confirmarNuevaCompra = () => {
+    const confirmReset = () => {
         presentAlert({
             header: 'Iniciar nueva compra',
             subHeader: '¿Desea iniciar una nueva compra?',
             message: 'Esta acción eliminará los registros ya ingresados',
             buttons: [
-                { text: 'Iniciar', role: 'confirm', handler: () => setPersonas([]) },
+                { text: 'Iniciar', role: 'confirm', handler: () => setPeople([]) },
                 { text: 'Cancelar', role: 'cancel' },
             ],
         });
@@ -73,8 +72,8 @@ const Calculator: React.FC = () => {
                     <div style={{ width: '95%' }}>
                         <HeaderCustom icon={people} title='.cuentas' isIcon={true} />
                     </div>
-                    {personas.length >= 2 && (
-                        <IonButton id='new_buy' color='light' size='small' onClick={confirmarNuevaCompra}>
+                    {people.length >= 2 && (
+                        <IonButton id='new_buy' color='light' size='small' onClick={confirmReset}>
                             <IonIcon icon={reload} style={{ fontSize: '1rem' }} />
                         </IonButton>
                     )}
@@ -82,43 +81,43 @@ const Calculator: React.FC = () => {
 
                 <div className={s.container}>
                     <div className={s.persons}>
-                        {personas.length < 2 && (
+                        {people.length < 2 && (
                             <div className={s.empty}>
                                 <p>Ingrese 2 o más personas para calcular...</p>
                             </div>
                         )}
-                        {personas.map((p, index) => (
-                            <CardPerson key={index} person={p} deletePerson={() => deletePerson(p.nombre)} />
+                        {people.map((p, index) => (
+                            <CardPerson key={index} person={p} deletePerson={() => deletePerson(p.name)} />
                         ))}
                     </div>
 
-                    <IonFabButton onClick={() => setModalOpen(true)} color='light' size='small'>
+                    <IonFabButton onClick={() => setFormOpen(true)} color='light' size='small'>
                         <IonIcon icon={add} style={{ fontSize: '1.3rem' }} />
                     </IonFabButton>
 
                     <div style={{ width: '100%' }}>
                         <button
-                            disabled={personas.length < 2}
-                            className={personas.length >= 2 ? s.calcular : s.cacular_dis}
-                            onClick={calcularCuentas}
+                            disabled={people.length < 2}
+                            className={people.length >= 2 ? s.calcular : s.cacular_dis}
+                            onClick={calculateExpenses}
                         >
                             Calcular
                         </button>
                     </div>
                 </div>
 
-                <ModalResultados
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
+                <ResultsModal
+                    isOpen={resultsOpen}
+                    setIsOpen={setResultsOpen}
                     loading={loading}
                     results={results}
                 />
                 <FormModal
-                    isOpen={modalOpen}
-                    setIsOpen={setModalOpen}
+                    isOpen={formOpen}
+                    setIsOpen={setFormOpen}
                     form={form}
                     setForm={setForm}
-                    agregarPersona={agregarPersona}
+                    addPerson={addPerson}
                 />
             </IonContent>
         </IonPage>

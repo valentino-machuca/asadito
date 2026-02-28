@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { Browser } from '@capacitor/browser';
 import s from './Home.module.scss';
 
-// Componentes
+// Components
 import HeaderCustom from '../../components/Header/Header';
 
 const openSite = async (url: string) => {
@@ -36,15 +36,15 @@ const Features: React.FC = () => {
     return (
         <div className={s.features}>
             <h3>Herramientas!</h3>
-            <div className={s.feat} onClick={() => navigate('/cuentas')}>
+            <div className={s.feat} onClick={() => navigate('/expenses')}>
                 <IonIcon icon={restaurant} style={{ fontSize: '14pt', marginRight: '8px' }} />
                 <p>Divisor de compras</p>
             </div>
-            <div className={s.feat} onClick={() => navigate('/anotador')}>
+            <div className={s.feat} onClick={() => navigate('/scorekeeper')}>
                 <IonIcon icon={bonfire} style={{ fontSize: '14pt', marginRight: '8px' }} />
                 <p>Anotador de truco</p>
             </div>
-            <div className={s.feat} onClick={() => navigate('/compras')}>
+            <div className={s.feat} onClick={() => navigate('/shopping')}>
                 <IonIcon icon={cart} style={{ fontSize: '14pt', marginRight: '8px' }} />
                 <p>Compras</p>
             </div>

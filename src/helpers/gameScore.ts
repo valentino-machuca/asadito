@@ -1,12 +1,13 @@
-type PuntosGrupo = number[];
-type TableroEquipo = PuntosGrupo[];
+type PointGroup = number[];
+type TeamScore = PointGroup[];
 
 /**
- * Agrega un punto al equipo. Los puntos se agrupan de a 5 (como fósforos).
- * Cuando el grupo actual llega a 5, crea uno nuevo.
- * No hace nada si el equipo ya alcanzó los 30 puntos.
+ * Adds a point to the team's score.
+ * Points are grouped in sets of 5 (like matchsticks).
+ * When the current group reaches 5, a new group is started.
+ * Does nothing if the team has already reached 30 points.
  */
-export const addPoint = (array: TableroEquipo): TableroEquipo => {
+export const addPoint = (array: TeamScore): TeamScore => {
     const flatArray = array.flat();
 
     if (flatArray.length >= 30) return array;
@@ -28,10 +29,10 @@ export const addPoint = (array: TableroEquipo): TableroEquipo => {
 };
 
 /**
- * Elimina el último punto del equipo.
- * Si el último grupo queda vacío, lo elimina también.
+ * Removes the last point from the team's score.
+ * If the last group becomes empty, it is removed as well.
  */
-export const deletePoint = (array: TableroEquipo): TableroEquipo => {
+export const deletePoint = (array: TeamScore): TeamScore => {
     if (array.length === 0) return array;
 
     if (array[array.length - 1].length === 1) {

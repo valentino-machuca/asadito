@@ -1,7 +1,5 @@
-
-
-.list{
-    p{
+.list {
+    p {
         width: 100%;
         opacity: .5;
         text-align: center;
@@ -9,11 +7,11 @@
     }
 }
 
-.itembox{
+.itemBox {
     animation: init .3s both;
 
-    .itemlabel{
-        p{
+    .itemLabel {
+        p {
             margin-top: 8px;
             opacity: .5;
             font-size: .7rem;
@@ -21,17 +19,16 @@
     }
 }
 
-.animation{
+.animation {
     animation: init .3s both;
 }
 
-
 @keyframes init {
-    0%{
+    0% {
         opacity: 0;
         transform: translateY(100px);
     }
-    100%{
+    100% {
         opacity: 1;
         transform: translateY(0);
     }

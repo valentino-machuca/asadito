@@ -1,49 +1,49 @@
 import { IonButton, IonContent, IonInput, IonModal, IonSelect, IonSelectOption } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
-import type { Persona } from '../../types/persona';
+import type { Person } from '../../types/person';
 import s from './FormModal.module.scss';
 
-type ConsumoSelector = 'come_toma' | 'come' | 'toma';
+type ConsumptionSelector = 'eats_drinks' | 'eats' | 'drinks';
 
 interface FormModalProps {
     isOpen: boolean;
     setIsOpen: (open: boolean) => void;
-    form: Persona;
-    setForm: React.Dispatch<React.SetStateAction<Persona>>;
-    agregarPersona: () => void;
+    form: Person;
+    setForm: React.Dispatch<React.SetStateAction<Person>>;
+    addPerson: () => void;
 }
 
-const FormModal: React.FC<FormModalProps> = ({ isOpen, setIsOpen, form, setForm, agregarPersona }) => {
-    const [selectState, setSelectState] = useState<ConsumoSelector>('come_toma');
+const FormModal: React.FC<FormModalProps> = ({ isOpen, setIsOpen, form, setForm, addPerson }) => {
+    const [selectState, setSelectState] = useState<ConsumptionSelector>('eats_drinks');
 
-    const handleChangeInputNumber = (event: Event, field: 'gasto_comida' | 'gasto_bebida') => {
+    const handleNumberInput = (event: Event, field: 'foodExpense' | 'drinkExpense') => {
         const value = (event.target as HTMLInputElement).value;
         if (value === '' || !isNaN(Number(value))) {
             setForm(prev => ({ ...prev, [field]: value }));
         }
     };
 
-    const handleSelector = (v: ConsumoSelector) => {
-        if (v === 'come') setForm(prev => ({ ...prev, gasto_bebida: '' }));
-        if (v === 'toma') setForm(prev => ({ ...prev, gasto_comida: '' }));
+    const handleSelector = (v: ConsumptionSelector) => {
+        if (v === 'eats')   setForm(prev => ({ ...prev, drinkExpense: '' }));
+        if (v === 'drinks') setForm(prev => ({ ...prev, foodExpense: '' }));
         setSelectState(v);
     };
 
-    const updateSelectForm = () => {
-        if (selectState === 'come_toma') setForm(prev => ({ ...prev, come: true, toma: true }));
-        if (selectState === 'come')      setForm(prev => ({ ...prev, come: true, toma: false }));
-        if (selectState === 'toma')      setForm(prev => ({ ...prev, come: false, toma: true }));
+    const syncFormFlags = () => {
+        if (selectState === 'eats_drinks') setForm(prev => ({ ...prev, eats: true,  drinks: true  }));
+        if (selectState === 'eats')        setForm(prev => ({ ...prev, eats: true,  drinks: false }));
+        if (selectState === 'drinks')      setForm(prev => ({ ...prev, eats: false, drinks: true  }));
     };
 
     const isAddDisabled = (): boolean => {
-        if (form.come && form.toma) return form.gasto_comida === '' || form.gasto_bebida === '' || form.nombre === '';
-        if (form.come)              return form.gasto_comida === '' || form.nombre === '';
-        if (form.toma)              return form.gasto_bebida === '' || form.nombre === '';
-        return form.nombre === '';
+        if (form.eats && form.drinks) return form.foodExpense === '' || form.drinkExpense === '' || form.name === '';
+        if (form.eats)                return form.foodExpense === '' || form.name === '';
+        if (form.drinks)              return form.drinkExpense === '' || form.name === '';
+        return form.name === '';
     };
 
     useEffect(() => {
-        updateSelectForm();
+        syncFormFlags();
     }, [selectState]);
 
     return (
@@ -57,31 +57,31 @@ const FormModal: React.FC<FormModalProps> = ({ isOpen, setIsOpen, form, setForm,
                                 <span>Nombre</span>
                                 <IonInput
                                     className={s.input_field}
-                                    value={form.nombre}
-                                    onIonInput={(e) => setForm(prev => ({ ...prev, nombre: String(e.target.value ?? '') }))}
+                                    value={form.name}
+                                    onIonInput={(e) => setForm(prev => ({ ...prev, name: String(e.target.value ?? '') }))}
                                     type='text'
                                     placeholder='Ingresar nombre'
                                 />
                             </div>
-                            {form.come && (
+                            {form.eats && (
                                 <div className={s.input}>
                                     <span>Gasto en comida</span>
                                     <IonInput
                                         className={s.input_field}
-                                        value={form.gasto_comida}
-                                        onIonInput={(e) => handleChangeInputNumber(e as unknown as Event, 'gasto_comida')}
+                                        value={form.foodExpense}
+                                        onIonInput={(e) => handleNumberInput(e as unknown as Event, 'foodExpense')}
                                         type='number'
                                         placeholder='Ingresar gasto en comida'
                                     />
                                 </div>
                             )}
-                            {form.toma && (
+                            {form.drinks && (
                                 <div className={s.input}>
                                     <span>Gasto en bebida</span>
                                     <IonInput
                                         className={s.input_field}
-                                        value={form.gasto_bebida}
-                                        onIonInput={(e) => handleChangeInputNumber(e as unknown as Event, 'gasto_bebida')}
+                                        value={form.drinkExpense}
+                                        onIonInput={(e) => handleNumberInput(e as unknown as Event, 'drinkExpense')}
                                         type='number'
                                         placeholder='Ingresar gasto en bebida'
                                     />
@@ -90,21 +90,21 @@ const FormModal: React.FC<FormModalProps> = ({ isOpen, setIsOpen, form, setForm,
                             <div className={s.input}>
                                 <span>¿Come y toma?</span>
                                 <IonSelect
-                                    aria-label="come"
+                                    aria-label="consumption"
                                     interface="popover"
                                     value={selectState}
-                                    onIonChange={(e) => handleSelector(e.detail.value as ConsumoSelector)}
+                                    onIonChange={(e) => handleSelector(e.detail.value as ConsumptionSelector)}
                                     className={s.input_field}
                                 >
-                                    <IonSelectOption value="come_toma">Come y toma</IonSelectOption>
-                                    <IonSelectOption value="come">Solo come</IonSelectOption>
-                                    <IonSelectOption value="toma">Solo toma</IonSelectOption>
+                                    <IonSelectOption value="eats_drinks">Come y toma</IonSelectOption>
+                                    <IonSelectOption value="eats">Solo come</IonSelectOption>
+                                    <IonSelectOption value="drinks">Solo toma</IonSelectOption>
                                 </IonSelect>
                             </div>
                         </div>
                         <IonButton
                             className={s.button}
-                            onClick={() => { agregarPersona(); setSelectState('come_toma'); }}
+                            onClick={() => { addPerson(); setSelectState('eats_drinks'); }}
                             style={{ width: '100%' }}
                             color='light'
                             disabled={isAddDisabled()}

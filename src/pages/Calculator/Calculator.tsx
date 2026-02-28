@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IonContent, IonPage, IonButton, IonIcon, IonFabButton, useIonAlert } from '@ionic/react';
-import { add, people, reload } from 'ionicons/icons';
+import { add, people as peopleIcon, reload } from 'ionicons/icons';
 import type { Person, ExpensesResult } from '../../types/person';
 import calculateBalances from '../../helpers/expenses';
 
@@ -70,7 +70,7 @@ const Calculator: React.FC = () => {
             <IonContent fullscreen color='dark' style={{ maxWidth: '800px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginRight: '20px' }}>
                     <div style={{ width: '95%' }}>
-                        <HeaderCustom icon={people} title='.cuentas' isIcon={true} />
+                        <HeaderCustom icon={peopleIcon} title='.cuentas' isIcon={true} />
                     </div>
                     {people.length >= 2 && (
                         <IonButton id='new_buy' color='light' size='small' onClick={confirmReset}>

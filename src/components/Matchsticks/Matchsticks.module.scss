@@ -1,0 +1,49 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 15%;
+    margin-bottom: 5%;
+
+    .matchstick1, .matchstick2, .matchstick3, .matchstick4, .matchstick5 {
+        animation: init .2s both;
+        position: absolute;
+        font-size: 2.3rem;
+        top: 10%;
+        left: 28%;
+        rotate: 135deg;
+    }
+
+    .matchstick2 {
+        top: -20%;
+        left: 40%;
+        rotate: 45deg;
+    }
+
+    .matchstick3 {
+        top: 10%;
+        left: 52%;
+    }
+
+    .matchstick4 {
+        top: 40%;
+        left: 40%;
+        rotate: 45deg;
+    }
+
+    .matchstick5 {
+        top: 10%;
+        left: 40%;
+        rotate: 90deg;
+    }
+}
+
+@keyframes init {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

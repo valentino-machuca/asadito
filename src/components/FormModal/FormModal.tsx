@@ -1,79 +1,129 @@
-import { IonButton, IonContent, IonInput, IonModal, IonSelect, IonSelectOption } from '@ionic/react'
-import React, { useEffect, useState } from 'react'
+import { IonButton, IonContent, IonInput, IonModal, IonSelect, IonSelectOption } from '@ionic/react';
+import React, { useEffect, useState } from 'react';
+import type { Person } from '../../types/person';
 import s from './FormModal.module.scss';
 
-const FormModal: React.FC<{isOpen: boolean, setIsOpen: any, form: Persona, setForm: any, agregarPersona : any}> = ({isOpen, setIsOpen, form, setForm, agregarPersona}) => {
+type ConsumptionSelector = 'eats_drinks' | 'eats' | 'drinks';
 
-    const [selectState, setSelectState] = useState<'come_toma' | 'come' | 'toma'>('come_toma')
+interface FormModalProps {
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+    form: Person;
+    setForm: React.Dispatch<React.SetStateAction<Person>>;
+    addPerson: () => void;
+}
 
-    const handleChangeInputNumber = (event: any, field: string) => {
-        const { value } = event.target;
-        if (value === '' || !isNaN(value)) {
-          setForm((prev : any) => ({...prev, [field]: value}))
+const FormModal: React.FC<FormModalProps> = ({ isOpen, setIsOpen, form, setForm, addPerson }) => {
+    const [selectState, setSelectState] = useState<ConsumptionSelector>('eats_drinks');
+
+    const handleNumberInput = (event: Event, field: 'foodExpense' | 'drinkExpense') => {
+        const value = (event.target as HTMLInputElement).value;
+        if (value === '' || !isNaN(Number(value))) {
+            setForm(prev => ({ ...prev, [field]: value }));
         }
     };
 
-    const handleSelector = (v : any) => {
+    const handleSelector = (v: ConsumptionSelector) => {
+        if (v === 'eats')   setForm(prev => ({ ...prev, drinkExpense: '' }));
+        if (v === 'drinks') setForm(prev => ({ ...prev, foodExpense: '' }));
+        setSelectState(v);
+    };
 
-        if(v === 'come') setForm({...form, gasto_bebida: ''})
-        if(v === 'toma') setForm({...form, gasto_comida: ''})
-        setSelectState(v); 
-    }
+    const syncFormFlags = () => {
+        if (selectState === 'eats_drinks') setForm(prev => ({ ...prev, eats: true,  drinks: true  }));
+        if (selectState === 'eats')        setForm(prev => ({ ...prev, eats: true,  drinks: false }));
+        if (selectState === 'drinks')      setForm(prev => ({ ...prev, eats: false, drinks: true  }));
+    };
 
-    const updateSelectForm = () => {
-        if(selectState === 'come_toma') setForm((prev: any) => ({...prev, come: true, toma: true}));
-        if(selectState === 'come') setForm((prev: any) => ({...prev, come: true, toma: false}));
-        if(selectState === 'toma') setForm((prev: any) => ({...prev, come: false, toma: true}));
-    }
-
-    const disabledAdd = () => {
-        if(form.come && form.toma) return form.gasto_comida === '' || form.gasto_bebida === '' || form.nombre === '';
-        if(form.come) return form.gasto_comida === '' || form.nombre === '';
-        if(form.toma) return form.gasto_bebida === '' || form.nombre === '';
-        return form.nombre === '';
-    }
+    const isAddDisabled = (): boolean => {
+        if (form.eats && form.drinks) return form.foodExpense === '' || form.drinkExpense === '' || form.name === '';
+        if (form.eats)                return form.foodExpense === '' || form.name === '';
+        if (form.drinks)              return form.drinkExpense === '' || form.name === '';
+        return form.name === '';
+    };
 
     useEffect(() => {
-        updateSelectForm();
+        syncFormFlags();
     }, [selectState]);
 
-  return (
-    <IonModal isOpen={isOpen}>
-        <IonContent className='ion-padding' color='dark'>
-            <div className={s.modal}>
-                <div className={s.transactions}>
-                    <h3>Añadir persona</h3>
-                    <div className={s.formulario}>
-                        <div className={s.input}>
-                            <span>Nombre</span>
-                            <IonInput className={s.input_field} value={form.nombre} onIonInput={(e) => setForm((prev : any) => ({...prev, nombre: e.target.value}))} type='text' placeholder='Ingresar nombre'/>
+    return (
+        <IonModal isOpen={isOpen}>
+            <IonContent className='ion-padding' color='dark'>
+                <div className={s.modal}>
+                    <div className={s.transactions}>
+                        <h3>Añadir persona</h3>
+                        <div className={s.formulario}>
+                            <div className={s.input}>
+                                <span>Nombre</span>
+                                <IonInput
+                                    className={s.input_field}
+                                    value={form.name}
+                                    onIonInput={(e) => setForm(prev => ({ ...prev, name: String(e.target.value ?? '') }))}
+                                    type='text'
+                                    placeholder='Ingresar nombre'
+                                />
+                            </div>
+                            {form.eats && (
+                                <div className={s.input}>
+                                    <span>Gasto en comida</span>
+                                    <IonInput
+                                        className={s.input_field}
+                                        value={form.foodExpense}
+                                        onIonInput={(e) => handleNumberInput(e as unknown as Event, 'foodExpense')}
+                                        type='number'
+                                        placeholder='Ingresar gasto en comida'
+                                    />
+                                </div>
+                            )}
+                            {form.drinks && (
+                                <div className={s.input}>
+                                    <span>Gasto en bebida</span>
+                                    <IonInput
+                                        className={s.input_field}
+                                        value={form.drinkExpense}
+                                        onIonInput={(e) => handleNumberInput(e as unknown as Event, 'drinkExpense')}
+                                        type='number'
+                                        placeholder='Ingresar gasto en bebida'
+                                    />
+                                </div>
+                            )}
+                            <div className={s.input}>
+                                <span>¿Come y toma?</span>
+                                <IonSelect
+                                    aria-label="consumption"
+                                    interface="popover"
+                                    value={selectState}
+                                    onIonChange={(e) => handleSelector(e.detail.value as ConsumptionSelector)}
+                                    className={s.input_field}
+                                >
+                                    <IonSelectOption value="eats_drinks">Come y toma</IonSelectOption>
+                                    <IonSelectOption value="eats">Solo come</IonSelectOption>
+                                    <IonSelectOption value="drinks">Solo toma</IonSelectOption>
+                                </IonSelect>
+                            </div>
                         </div>
-                        {form.come && <div className={s.input}>
-                            <span>Gasto en comida</span>
-                            <IonInput className={s.input_field} value={form.gasto_comida} onIonInput={(e) => handleChangeInputNumber(e, 'gasto_comida')} type='number' placeholder='Ingresar gasto en comida'/>
-                        </div>}
-                        {form.toma && <div className={s.input}>
-                            <span>Gasto en bebida</span>
-                            <IonInput className={s.input_field} value={form.gasto_bebida} onIonInput={(e) => handleChangeInputNumber(e, 'gasto_bebida')} type='number' placeholder='Ingresar gasto en bebida'/>
-                        </div>}
-                        <div className={s.input}>
-                            <span>¿Come y toma?</span>
-                            <IonSelect aria-label="come" interface="popover" value={selectState} onIonChange={(e) => handleSelector(e.detail.value)} className={s.input_field}>
-                                <IonSelectOption value="come_toma">Come y toma</IonSelectOption>
-                                <IonSelectOption value="come">Solo come</IonSelectOption>
-                                <IonSelectOption value="toma">Solo toma</IonSelectOption>
-                            </IonSelect>
-                        </div>
+                        <IonButton
+                            className={s.button}
+                            onClick={() => { addPerson(); setSelectState('eats_drinks'); }}
+                            style={{ width: '100%' }}
+                            color='light'
+                            disabled={isAddDisabled()}
+                        >
+                            Añadir
+                        </IonButton>
+                        <IonButton
+                            className={s.button}
+                            onClick={() => setIsOpen(false)}
+                            style={{ width: '100%' }}
+                            color='light'
+                        >
+                            Cerrar
+                        </IonButton>
                     </div>
-                    <IonButton className={s.button} onClick={() => {agregarPersona(); setSelectState('come_toma')}} style={{width: '100%'}} color='light'
-                        disabled={disabledAdd()}    
-                    >Añadir</IonButton>
-                    <IonButton className={s.button} onClick={() => setIsOpen(false)} style={{width: '100%'}} color='light'>Cerrar</IonButton>
                 </div>
-            </div>
-        </IonContent>
-    </IonModal>
-  )
-}
+            </IonContent>
+        </IonModal>
+    );
+};
 
-export default FormModal
+export default FormModal;

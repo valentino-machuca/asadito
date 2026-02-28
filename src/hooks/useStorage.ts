@@ -1,98 +1,110 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
 import { Storage } from '@ionic/storage';
 
-const COMPRAS_KEY = 'compras';
+const SHOPPING_LISTS_KEY = 'compras';
 
-export interface ComprasItem {
+export interface ShoppingListItem {
     id: string;
     name: string;
     completed: boolean;
     date: string;
-    tasks: {task: string, completed: boolean}[]
+    tasks: { task: string; completed: boolean }[];
 }
 
 export function useStorage() {
     const [store, setStore] = useState<Storage | null>(null);
-    const [compras, setCompras] = useState<ComprasItem[]>([]);
+    const [shoppingLists, setShoppingLists] = useState<ShoppingListItem[]>([]);
 
     useEffect(() => {
         const initStorage = async () => {
-
-            const newStore = new Storage({ // Configuración de db
-                name: 'asaditodb'
-            });
-
-            const store = await newStore.create(); // Crear db
-            setStore(store);
-
-            const storedCompras = await store.get(COMPRAS_KEY) || []; // Obtener compras
-            setCompras(storedCompras);
-        }
+            try {
+                const newStore = new Storage({ name: 'asaditodb' });
+                const store = await newStore.create();
+                setStore(store);
+                const stored: ShoppingListItem[] = (await store.get(SHOPPING_LISTS_KEY)) ?? [];
+                setShoppingLists(stored);
+            } catch (error) {
+                console.error('Error initializing storage:', error);
+            }
+        };
         initStorage();
     }, []);
 
-    // Crear compra
-    const createCompra = async (name: string) => {
-        const nuevaCompra = {
-            id: '' + new Date().getTime(),
-            name,
-            completed: false,
-            date: '' + new Date(),
-            tasks: [],
+    const createList = async (name: string) => {
+        try {
+            const newList: ShoppingListItem = {
+                id: String(new Date().getTime()),
+                name,
+                completed: false,
+                date: String(new Date()),
+                tasks: [],
+            };
+            const updated = [...shoppingLists, newList];
+            setShoppingLists(updated);
+            await store?.set(SHOPPING_LISTS_KEY, updated);
+        } catch (error) {
+            console.error('Error creating list:', error);
         }
-        const nuevasCompras = [...compras, nuevaCompra];
-        setCompras(nuevasCompras);
-        await store?.set(COMPRAS_KEY, nuevasCompras);
-    }
+    };
 
-    const removeCompra = async (id: string) => {
-        const filteredCompras = compras.filter(item => item.id !== id);
-        setCompras(filteredCompras);
-        await store?.set(COMPRAS_KEY, filteredCompras);
-    }
+    const removeList = async (id: string) => {
+        try {
+            const filtered = shoppingLists.filter(item => item.id !== id);
+            setShoppingLists(filtered);
+            await store?.set(SHOPPING_LISTS_KEY, filtered);
+        } catch (error) {
+            console.error('Error removing list:', error);
+        }
+    };
 
-    const addTaskToCompra = async (compraId: string, task: string) => {
-        const updatedCompras = compras.map(compra => {
-            if (compra.id === compraId) {
-                return { ...compra, tasks: [...compra.tasks, {
-                    task,
-                    completed: false,
-                }] };
-            }
-            return compra;
-        });
-        setCompras([...updatedCompras]);
-        await store?.set(COMPRAS_KEY, updatedCompras);
-    }
+    const addTask = async (listId: string, task: string) => {
+        try {
+            const updated = shoppingLists.map(list =>
+                list.id === listId
+                    ? { ...list, tasks: [...list.tasks, { task, completed: false }] }
+                    : list
+            );
+            setShoppingLists(updated);
+            await store?.set(SHOPPING_LISTS_KEY, updated);
+        } catch (error) {
+            console.error('Error adding task:', error);
+        }
+    };
 
-    const removeTaskFromCompra = async (compraId: string, taskName: string) => {
-        const updatedCompras = compras.map(compra => {
-            if (compra.id === compraId) {
-                return { ...compra, tasks: compra.tasks.filter(task => task.task !== taskName) };
-            }
-            return compra;
-        });
-        setCompras(updatedCompras);
-        await store?.set(COMPRAS_KEY, updatedCompras);
-    }
+    const removeTask = async (listId: string, taskName: string) => {
+        try {
+            const updated = shoppingLists.map(list =>
+                list.id === listId
+                    ? { ...list, tasks: list.tasks.filter(t => t.task !== taskName) }
+                    : list
+            );
+            setShoppingLists(updated);
+            await store?.set(SHOPPING_LISTS_KEY, updated);
+        } catch (error) {
+            console.error('Error removing task:', error);
+        }
+    };
 
-    const updateTaskStatus = async (compraId: string, taskName: string) => {
-        const updatedCompras = compras.map(compra => {
-            if (compra.id === compraId) {
-                return { ...compra, tasks: compra.tasks.map(task => task.task === taskName ? { ...task, completed: !task.completed} : task) };
-            }
-            return compra;
-        });
-        setCompras(updatedCompras);
-        await store?.set(COMPRAS_KEY, updatedCompras);
-    }
+    const updateTaskStatus = async (listId: string, taskName: string) => {
+        try {
+            const updated = shoppingLists.map(list =>
+                list.id === listId
+                    ? { ...list, tasks: list.tasks.map(t => t.task === taskName ? { ...t, completed: !t.completed } : t) }
+                    : list
+            );
+            setShoppingLists(updated);
+            await store?.set(SHOPPING_LISTS_KEY, updated);
+        } catch (error) {
+            console.error('Error updating task status:', error);
+        }
+    };
 
     return {
-        compras,
-        createCompra,
-        removeCompra,
-        addTaskToCompra,
-        removeTaskFromCompra,
-        updateTaskStatus
-    }
+        shoppingLists,
+        createList,
+        removeList,
+        addTask,
+        removeTask,
+        updateTaskStatus,
+    };
 }

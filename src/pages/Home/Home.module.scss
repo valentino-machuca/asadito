@@ -1,14 +1,14 @@
-
-.container{
+.container {
     width: 90%;
-    height: 86vh;
+    min-height: 86vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-inline: 20px;
+    /* Use percentage margins so they scale with screen width */
+    margin-inline: 5%;
     font-family: 'Montserrat', sans-serif;
 
-    .feat, .link{
+    .feat, .link {
         transition: .1s;
         width: 100%;
         display: flex;
@@ -20,54 +20,88 @@
         border-radius: 5px;
         margin-bottom: 15px;
 
-        p{
+        p {
             margin: 0;
             padding: 0;
-            font-size: .7rem;
+            font-size: .75rem;
         }
 
-        &:active{
+        &:active {
             transition: .1s;
             opacity: .7;
             scale: .99;
         }
     }
 
-    .support{
+    .support {
         animation: init .3s .3s both;
-        margin-top: 50px;
+        margin-top: 40px;
     }
 
-    .features{
+    .features {
         animation: init .3s .5s both;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
+        gap: 0;
 
-        .feat{
+        /* Mobile: 2-column grid */
+        .feat {
             display: flex;
             justify-content: flex-start;
             align-items: center;
             width: 48%;
         }
+
+        /* Tablet portrait: 4-column grid */
+        @media (min-width: 768px) {
+            .feat {
+                width: 23%;
+            }
+        }
     }
-    
-    h3{
+
+    h3 {
         width: 100%;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: 300;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
+
+        @media (min-width: 768px) {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+    }
+
+    /* Tablet portrait: more breathing room */
+    @media (min-width: 600px) {
+        margin-inline: 4%;
+
+        .support {
+            margin-top: 50px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        margin-inline: 3%;
+
+        .feat, .link {
+            padding: 1.2em;
+
+            p {
+                font-size: .85rem;
+            }
+        }
     }
 }
 
 @keyframes init {
-    0%{
+    0% {
         opacity: 0;
         transform: translateX(-100px);
     }
-
-    100%{
+    100% {
         opacity: 1;
         transform: translateX(0);
     }

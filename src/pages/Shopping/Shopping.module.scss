@@ -11,10 +11,23 @@
     animation: init .3s both;
 
     .itemLabel {
+        h2 {
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
         p {
-            margin-top: 8px;
+            margin-top: 6px;
             opacity: .5;
-            font-size: .7rem;
+            font-size: .72rem;
+        }
+    }
+
+    /* Tablet: larger list items for comfortable reading */
+    @media (min-width: 768px) {
+        .itemLabel {
+            h2 { font-size: 1.1rem; }
+            p  { font-size: .8rem; }
         }
     }
 }

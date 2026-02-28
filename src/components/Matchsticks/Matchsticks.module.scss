@@ -7,7 +7,7 @@
     .matchstick1, .matchstick2, .matchstick3, .matchstick4, .matchstick5 {
         animation: init .2s both;
         position: absolute;
-        font-size: 2.3rem;
+        font-size: 2.2rem;
         top: 10%;
         left: 28%;
         rotate: 135deg;
@@ -34,6 +34,13 @@
         top: 10%;
         left: 40%;
         rotate: 90deg;
+    }
+
+    /* Tablet: slightly larger matchsticks for the bigger display */
+    @media (min-width: 768px) {
+        .matchstick1, .matchstick2, .matchstick3, .matchstick4, .matchstick5 {
+            font-size: 2.6rem;
+        }
     }
 }
 

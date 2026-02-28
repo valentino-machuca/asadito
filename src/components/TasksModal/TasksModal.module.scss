@@ -14,6 +14,11 @@
             border-radius: 8px;
             margin-top: 10px;
         }
+
+        /* Tablet: more spacing between list items */
+        @media (min-width: 768px) {
+            .ionitem { margin-top: 14px; }
+        }
     }
 }
 

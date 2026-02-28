@@ -12,13 +12,15 @@
 
   img{
     animation: entry_logo 1s .5s both;
-    width: 50%;
+    /* Fluid: at least 140px, 50% on small screens, capped at 220px on tablets */
+    width: clamp(140px, 50%, 220px);
   }
 
   .progress{
     margin-top: 80px;
     animation: opacity_progress .3s .3s both;
-    width: 40%;
+    /* Fluid: at least 160px, 40% on small screens, capped at 280px on tablets */
+    width: clamp(160px, 40%, 280px);
   }
 }
 

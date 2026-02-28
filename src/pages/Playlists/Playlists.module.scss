@@ -1,78 +1,86 @@
-.container{
-   display: flex;
-   justify-content: flex-start;
-   align-items: center;
-   flex-direction: column;
-   width: 100%;
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
 
+    p {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif !important;
+        opacity: .8;
+        font-size: .95rem;
+        padding-inline: 4%;
 
-   p{
-      text-align: center;
-      font-family: 'Montserrat', sans-serif !important;
-      opacity: .8;
-      font-size: 1rem;
-   }
+        @media (min-width: 768px) {
+            font-size: 1.05rem;
+        }
+    }
 
-   .ionItem{
-      animation: init .3s both;
-      position: relative;
-      margin-top: 20px;
-      border-radius: 8px;
+    .ionItem {
+        animation: init .3s both;
+        position: relative;
+        margin-top: 16px;
+        border-radius: 8px;
 
-      .playlist_loader{
-         animation: loader 0.3s 2s both;
-         position: absolute;
-         display: flex;
-         justify-content: center;
-         align-items: center;
-         width: 96%;
-         height: 100%;
-         background-color: #ffffff24;
-         backdrop-filter: blur(10px);
-         -webkit-backdrop-filter: blur(10px);
-         border-radius: 8px;
+        /* Tablet: add horizontal padding so iframes don't stretch edge to edge */
+        @media (min-width: 768px) {
+            margin-top: 24px;
+        }
 
-         .progress{
-            width: 80%;
-         }
-      }
-   }
+        .playlist_loader {
+            animation: loader 0.3s 2s both;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 96%;
+            height: 100%;
+            background-color: #ffffff24;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 8px;
 
-   .no_internet{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding-inline: 8%;
-      margin-top: 20vh;
+            .progress {
+                width: 80%;
+            }
+        }
+    }
 
-      p{
-         opacity: 1;
-         font-size: .9rem;
-         margin-bottom: 30px;
-      }
-   }
+    .no_internet {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-inline: 10%;
+        /* Replace fixed 20vh with clamp so it never pushes content off-screen */
+        margin-top: clamp(60px, 18vh, 160px);
 
+        p {
+            opacity: 1;
+            font-size: .9rem;
+            margin-bottom: 28px;
+            padding-inline: 0;
 
+            @media (min-width: 768px) {
+                font-size: 1rem;
+            }
+        }
+    }
 }
 
 @keyframes init {
-   0%{
-      opacity: 0;
-      transform: translateY(100px);
-   }
-   100%{
-      opacity: 1;
-      transform: translateY(0px);
-   }
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }
 
 @keyframes loader {
-   0%{
-      opacity: 1;
-   }
-   100%{
-      opacity: 0;
-      display: none;
-   }
+    0%  { opacity: 1; }
+    100% { opacity: 0; display: none; }
 }
